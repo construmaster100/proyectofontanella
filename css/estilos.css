@@ -1,0 +1,2306 @@
+/* Paleta: azul y blanco del logotipo de Fontanella (img/marca); el naranja de
+   acento viene de sus piezas gráficas. Fondos, bordes y textos van teñidos del azul. */
+:root {
+  --azul: #102779;
+  --azul-oscuro: #08185c;
+  --blanco: #ffffff;
+  --naranja: #f39a27;
+  --naranja-oscuro: #d9741a;
+  --fondo: var(--blanco);
+  --fondo-suave: #f3f5fb;
+  --texto: #161d3d;
+  --texto-suave: #535b7d;
+  --borde: #d8ddee;
+  --radio: 14px;
+  --sombra: 0 10px 30px rgba(16, 39, 121, 0.12);
+  --color-grilla: #ff3b30aa;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  color: var(--texto);
+  background: var(--fondo);
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+
+.contenedor {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+/* Barra superior */
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  background: var(--azul);
+  color: #fff;
+}
+
+.marca { display: flex; align-items: flex-end; align-self: flex-end; margin-bottom: -12px; text-decoration: none; }
+.marca-logo { display: block; width: 116px; height: 48px; object-fit: contain; }
+
+/* Banner de marca (portada): fondo azul original */
+.banner { background: var(--azul); }
+/* Los cuadros miden 1734×867 y el logo ocupa de y≈215 a y≈690. La franja mide
+   la mitad (aspect-ratio 1734/252) y el logo a 1/3 de su tamaño, apoyado en la base. */
+.banner-animado { position: relative; width: min(100%, 1100px); aspect-ratio: 1734 / 252; margin-inline: auto; overflow: hidden; background: var(--azul); }
+.banner-animado img { position: absolute; left: 33.33%; bottom: -13%; width: 33.33%; height: 114.7%; object-fit: fill; }
+.banner-animado #portada-animada-b { opacity: 0; }
+.banner-animado .banner-palabra-fija { z-index: 2; pointer-events: none; }
+
+.menu { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.menu a { text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.menu a:not(.boton):hover { color: var(--naranja); }
+.menu a.activo:not(.boton) { color: var(--naranja); box-shadow: inset 0 -2px 0 var(--naranja); }
+.menu a.boton.activo { background: var(--naranja-oscuro); }
+
+/* Cada pestaña es una página: su sección ocupa el alto disponible */
+body { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1; display: flex; flex-direction: column; }
+main > section:last-child { flex: 1; }
+main > .seccion:first-child { padding-top: 28px; }
+
+/* El título de cada página ya está en la pestaña del menú: solo para lectores de pantalla */
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.hero { display: flex; align-items: center; }
+
+/* Botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.boton-naranja { background: var(--naranja); color: #fff; }
+.boton-naranja:hover { background: var(--naranja-oscuro); }
+.boton-claro { border-color: currentColor; color: inherit; background: transparent; }
+.boton-claro:hover { background: rgba(255, 255, 255, 0.12); }
+.boton-borde { border-color: var(--azul); color: var(--azul); background: #fff; }
+.boton-borde:hover { background: var(--fondo-suave); }
+
+/* Portada: tabla con los datos del proyecto */
+.hero { background: var(--blanco); color: var(--texto); padding-block: 40px 56px; }
+.hero > .contenedor { width: 100%; max-width: 1440px; }
+.hero.ficha { padding-top: 0; }
+.ficha .bloque-ficha:first-of-type { margin-top: 0; }
+.ficha h1 { font-family: "Playfair Display", Georgia, serif; font-size: 1.5rem; color: var(--azul); margin: 0 0 12px; }
+.ficha-tabla { border: 1px solid var(--borde); border-radius: 10px; }
+.ficha table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.ficha th, .ficha td { padding: 8px 10px; border-bottom: 1px solid var(--borde); text-align: right; vertical-align: middle; overflow-wrap: break-word; }
+.ficha thead th { background: var(--azul); color: #fff; font-size: 0.68rem; font-weight: 700; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+.ficha th:first-child { text-align: left; }
+.ficha-torres thead th:nth-child(-n+5), .ficha-torres tbody td:nth-child(-n+5), .ficha-torres tbody td:last-child, .ficha-torres thead th:last-child, .ficha-torres tbody td:nth-child(10), .ficha-torres thead th:nth-child(10) { text-align: center; }
+.ficha tbody td + td { border-left: 1px solid #eef0f7; }
+.ficha thead th + th { border-left: 1px solid rgba(255, 255, 255, 0.15); }
+.ficha tbody th { font-weight: 700; color: var(--texto); }
+.ficha tbody th small { display: block; color: var(--texto-suave); font-weight: 400; font-size: 0.72rem; }
+.ficha tbody tr:nth-child(even) { background: var(--fondo-suave); }
+.ficha-estado { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+.ficha-estado.ficha-c { background: #e7ebfa; color: var(--azul); }
+.ficha-estado.ficha-p { background: #fff1e2; color: #a5520a; }
+.ficha-total th, .ficha-total td { background: #e7ebfa; color: var(--azul); font-weight: 800; }
+.ficha-nota th, .ficha-nota td { font-size: 0.78rem; color: var(--texto-suave); white-space: normal; text-align: left; }
+.ficha-nota strong { color: var(--azul); }
+
+.ficha-leyenda { margin: 10px 0 0; display: flex; align-items: center; gap: 6px 14px; font-size: 0.78rem; color: var(--texto-suave); }
+.ficha-punto { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: -8px; margin-left: 8px; }
+/* Tablas de indicadores y tipologías */
+.ficha-dobles { margin-top: 16px; max-width: 760px; }
+.ficha-subtitulo { margin: 20px 0 8px; font-family: "Playfair Display", Georgia, serif; font-size: 1.15rem; color: var(--azul); }
+.ficha-indices td:nth-child(2) { text-align: left; color: var(--texto-suave); }
+.ficha-indices td:last-child { color: var(--azul); }
+.ficha-tipos td:nth-child(2), .ficha-tipos thead th:nth-child(2), .ficha-tipos td:nth-child(5), .ficha-tipos thead th:nth-child(5) { text-align: center; }
+.ficha-tipos td:nth-child(3), .ficha-tipos thead th:nth-child(3) { text-align: left; }
+.ficha .ficha-indices th, .ficha .ficha-tipos th { text-align: left; }
+.ficha .ficha-tipos thead th:nth-child(n+4), .ficha .ficha-tipos td:nth-child(n+4), .ficha .ficha-tipos tfoot th { text-align: right; }
+.ficha .ficha-tipos td:nth-child(5), .ficha .ficha-tipos thead th:nth-child(5) { text-align: center; }
+.ficha .ficha-indices td:last-child, .ficha .ficha-indices thead th:last-child { text-align: right; }
+
+/* Gráfico 3D: cada torre es una barra de niveles, cada cubo un apartamento */
+.ficha-3d { margin: 20px 0 0; padding: 16px 16px 12px; border: 1px solid var(--borde); border-radius: 10px; }
+.ficha-3d figcaption { font-weight: 700; font-size: 0.9rem; }
+.ficha-3d figcaption small { margin-left: 8px; color: var(--texto-suave); font-weight: 400; }
+.g-3d { display: block; width: 100%; max-width: 760px; height: auto; margin: 8px auto 0; font-family: "Montserrat", sans-serif; }
+.g-linea { stroke: #d5daea; stroke-dasharray: 2 2; }
+.g-base { stroke: #9aa1b8; stroke-width: 1.5; }
+.g-eje { fill: var(--texto); font-size: 9.5px; font-weight: 700; }
+.g-frente, .g-tapa, .g-lado { stroke: #fff; stroke-width: 0.8; stroke-linejoin: round; }
+.g-c .g-frente { fill: #3e59d9; } .g-c .g-tapa { fill: #7f93ec; } .g-c .g-lado { fill: #263a8e; }
+.g-p .g-frente { fill: #f39a27; } .g-p .g-tapa { fill: #f4ac66; } .g-p .g-lado { fill: #a9570a; }
+.g-nivel { transition: opacity 0.15s; }
+.g-torre:hover .g-nivel { opacity: 0.45; }
+.g-torre .g-nivel:hover { opacity: 1; }
+.g-valor { fill: var(--texto); font-size: 11px; font-weight: 700; }
+.g-nombre { fill: var(--texto); font-size: 11px; font-weight: 700; }
+.g-sub { fill: var(--texto-suave); font-size: 9px; }
+.g-sotano .g-frente { fill: #8a90a8; } .g-sotano .g-tapa { fill: #b4b9cc; } .g-sotano .g-lado { fill: #636a85; }
+.g-s2 .g-frente { fill: #7a8099; }
+.g-s3 .g-frente { fill: #6c7290; }
+.g-sotano { transition: opacity 0.15s; }
+.g-3d:has(.g-sotano:hover) .g-sotano:not(:hover) { opacity: 0.55; }
+.g-sotano text { fill: #fff; font-size: 9.5px; font-weight: 600; }
+.ficha-punto.ficha-s { background: #8a90a8; }
+.ficha-punto.ficha-c { background: #3e59d9; }
+.ficha-punto.ficha-p { background: #f39a27; }
+
+
+.etiqueta {
+  margin: 0;
+  color: var(--naranja);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Imágenes enlazadas por id */
+.imagen-id {
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+.imagen-id img { width: 100%; height: auto; transition: transform 0.4s; }
+.imagen-id:hover img { transform: scale(1.03); }
+
+/* Secciones */
+.seccion { padding-block: 72px; }
+.seccion-suave { background: var(--fondo-suave); }
+.titulo-seccion {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: var(--azul);
+  margin: 0 0 32px;
+  text-align: center;
+}
+
+.datos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.datos li {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--naranja);
+  border-radius: var(--radio);
+  padding: 24px;
+  text-align: center;
+}
+.dato-valor { display: block; font-size: 2rem; font-weight: 800; color: var(--azul); }
+.dato-texto { color: var(--texto-suave); }
+
+.bloque {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.bloque:last-child { margin-bottom: 0; }
+.bloque-invertido .bloque-imagen { order: 2; }
+.bloque h3 { font-size: 1.6rem; color: var(--azul); margin: 6px 0 12px; }
+.bloque p { color: var(--texto-suave); }
+
+/* Galería */
+.filtros { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
+.filtro {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: #fff;
+  color: var(--texto);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.filtro.activo { background: var(--azul); color: #fff; border-color: var(--azul); }
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+.miniatura {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio);
+  overflow: hidden;
+  background: var(--fondo-suave);
+  aspect-ratio: 1;
+  box-shadow: var(--sombra);
+}
+.miniatura img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.miniatura:hover img { transform: scale(1.05); }
+.miniatura-id, .insignia {
+  position: absolute;
+  top: 10px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.miniatura-id { left: 10px; background: rgba(8, 24, 92, 0.85); color: #fff; font-family: Consolas, monospace; }
+.insignia { right: 10px; background: var(--naranja); color: #fff; }
+.miniatura-titulo {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 28px 12px 10px;
+  background: linear-gradient(transparent, rgba(8, 24, 92, 0.9));
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+/* Explorador: carrusel de vistas aéreas */
+.seccion-oscura { background: var(--azul-oscuro); color: #fff; }
+.seccion-oscura .titulo-seccion { color: #fff; }
+.intro-seccion { max-width: 640px; margin: 0 auto 20px; text-align: center; opacity: 0.85; }
+
+.carrusel-marco {
+  position: relative;
+  border-radius: var(--radio);
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+.carrusel-pista {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.carrusel-pista::-webkit-scrollbar { display: none; }
+.carrusel-diapositiva {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.carrusel-diapositiva img { width: 100%; height: auto; }
+.carrusel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--azul);
+  font-size: 1.8rem;
+  line-height: 1;
+  box-shadow: var(--sombra);
+  transition: background 0.2s, color 0.2s;
+}
+.carrusel-nav:hover { background: var(--naranja); color: #fff; }
+.carrusel-anterior { left: 16px; }
+.carrusel-siguiente { right: 16px; }
+.carrusel-contador {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: rgba(8, 24, 92, 0.85);
+  color: #fff;
+  font: 700 0.8rem Consolas, monospace;
+  pointer-events: none;
+}
+.carrusel-miniaturas {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.carrusel-miniatura {
+  flex: 0 0 120px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  background: none;
+  opacity: 0.55;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+.carrusel-miniatura img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.carrusel-miniatura:hover, .carrusel-miniatura.activa { opacity: 1; }
+.carrusel-miniatura.activa { border-color: var(--naranja); }
+
+/* Presentación: menú lateral con el alcance de la segunda etapa */
+.presentacion {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.presentacion-menu {
+  position: sticky;
+  top: 90px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  padding: 14px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--fondo-suave);
+  font-size: 0.9rem;
+}
+.presentacion-menu ol { list-style: none; margin: 0; padding: 0; }
+.presentacion-menu ol ol { margin: 2px 0 6px 14px; padding-left: 10px; border-left: 2px solid var(--borde); }
+.presentacion-menu > ol { counter-reset: apartado; display: grid; gap: 4px; }
+.presentacion-menu > ol > li > .presentacion-enlace { font-weight: 700; color: var(--azul); }
+.presentacion-menu > ol > li > .presentacion-enlace::before {
+  counter-increment: apartado;
+  content: counter(apartado) ". ";
+  color: var(--naranja);
+}
+.presentacion-enlace {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--texto);
+  text-align: left;
+  line-height: 1.35;
+}
+.presentacion-enlace small { display: block; font-size: 0.78rem; color: var(--texto-suave); }
+.presentacion-enlace:hover { background: #fff; }
+.presentacion-enlace.en-ruta { background: rgba(16, 39, 121, 0.07); }
+.presentacion-menu .presentacion-enlace.activo { background: var(--azul); color: #fff; }
+.presentacion-menu .presentacion-enlace.activo::before,
+.presentacion-menu .presentacion-enlace.activo small { color: #fff; }
+
+.presentacion-panel { min-width: 0; }
+.presentacion-panel h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  color: var(--azul);
+  margin: 6px 0 10px;
+}
+.presentacion-nota {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #fff6ec;
+  color: var(--naranja-oscuro);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.presentacion-texto { margin: 0 0 16px; color: var(--texto-suave); }
+.presentacion-hijos {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.presentacion-hijos button {
+  width: 100%;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--naranja);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--texto);
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+.presentacion-hijos button:hover { border-color: var(--azul); border-left-color: var(--naranja); }
+.presentacion-hijos small { display: block; margin-top: 2px; color: var(--texto-suave); font-weight: 400; }
+.presentacion-imagen { display: block; width: 100%; }
+.presentacion-pendiente {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  padding: 24px;
+  border: 2px dashed var(--borde);
+  border-radius: var(--radio);
+  background: var(--fondo-suave);
+  color: var(--texto-suave);
+  text-align: center;
+}
+.presentacion-pendiente strong { display: block; color: var(--azul); }
+.presentacion-pasos { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.presentacion-pasos .boton:disabled { opacity: 0.4; cursor: default; }
+
+/* Contacto y pie */
+.contacto { background: var(--azul); color: #fff; }
+.contacto h1 { font-family: "Playfair Display", Georgia, serif; font-size: 2.2rem; margin: 0 0 8px; }
+.contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.contacto-datos { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.contacto-datos li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.contacto-datos span { opacity: 0.75; }
+.contacto-datos a { font-weight: 700; text-decoration: none; color: var(--naranja); }
+
+.pie { background: var(--azul-oscuro); color: rgba(255, 255, 255, 0.75); font-size: 0.85rem; padding-block: 18px; }
+.pie-grid { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Marcadores de puntos (sitio y administrador) */
+.lienzo { position: relative; display: inline-block; max-width: 100%; }
+.capa-puntos { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.marcador {
+  position: absolute;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--naranja);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  pointer-events: auto;
+  box-shadow: 0 0 0 0 rgba(240, 138, 36, 0.7);
+  animation: latido 2s infinite;
+}
+.marcador.activo, .marcador:hover, .marcador:focus-visible { background: var(--azul); z-index: 3; outline: none; }
+@keyframes latido {
+  70% { box-shadow: 0 0 0 12px rgba(240, 138, 36, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(240, 138, 36, 0); }
+}
+.globo {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 220px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--texto);
+  box-shadow: var(--sombra);
+  font-weight: 400;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+}
+.globo strong { display: block; color: var(--azul); }
+.globo span:empty { display: none; }
+/* La etiqueta se despliega al hacer clic en el botón */
+.marcador.abierto { background: var(--azul); z-index: 4; }
+.marcador.abierto .globo { opacity: 1; visibility: visible; }
+
+/* Visor */
+.visor {
+  width: min(1120px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio);
+  overflow: auto;
+}
+.visor::backdrop { background: rgba(5, 12, 48, 0.85); }
+.visor-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--borde);
+}
+.visor-cabecera > div { flex: 1; }
+.visor-cabecera h3 { margin: 0; color: var(--azul); font-size: 1.1rem; }
+.visor-id { font-family: Consolas, monospace; font-size: 0.75rem; color: var(--naranja-oscuro); font-weight: 700; }
+.visor-contador { color: var(--texto-suave); font-size: 0.85rem; }
+.visor-cerrar { border: 0; background: none; font-size: 1.8rem; line-height: 1; color: var(--texto-suave); }
+.visor-cuerpo { display: grid; grid-template-columns: 1fr 280px; }
+.visor-escena {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 56px;
+  background: var(--fondo-suave);
+}
+.visor-escena img { max-height: 72vh; width: auto; }
+.visor-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--azul);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.visor-anterior { left: 8px; }
+.visor-siguiente { right: 8px; }
+.visor-lado { padding: 20px; border-left: 1px solid var(--borde); }
+.visor-lado h4 { margin: 0 0 12px; color: var(--azul); }
+.visor-lista { margin: 0; padding-left: 20px; display: grid; gap: 12px; }
+.visor-lista li { cursor: pointer; padding: 4px 6px; }
+.visor-lista p { margin: 2px 0; color: var(--texto-suave); font-size: 0.88rem; }
+.visor-lista small { color: var(--texto-suave); font-family: Consolas, monospace; }
+.vacio { list-style: none; margin-left: -20px; color: var(--texto-suave); font-size: 0.9rem; }
+
+/* Administrador: misma página que index con grilla alfanumérica */
+.barra-admin {
+  position: sticky;
+  top: 64px;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding: 10px 24px;
+  background: #fff6ec;
+  border-bottom: 2px solid var(--naranja);
+  font-size: 0.85rem;
+}
+.barra-admin label { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.barra-admin select { font: inherit; }
+.barra-admin .boton { padding: 6px 14px; font-size: 0.8rem; cursor: pointer; }
+.barra-admin-ayuda { color: var(--texto-suave); flex: 1 1 260px; }
+.barra-admin-acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.con-grilla { position: relative; }
+.modo-admin .imagen-id:hover img,
+.modo-admin .miniatura:hover img { transform: none; }
+.modo-admin .miniatura { aspect-ratio: auto; }
+.modo-admin .miniatura img { height: auto; }
+.modo-admin .visor-escena .lienzo { cursor: crosshair; }
+
+.activar-grilla {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 4;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 2px solid #fff;
+  background: rgba(8, 24, 92, 0.85);
+  color: #fff;
+  font: 700 0.75rem Consolas, monospace;
+  cursor: pointer;
+  user-select: none;
+}
+.activar-grilla.activo { background: var(--naranja); }
+.miniatura .activar-grilla { bottom: auto; top: 40px; left: 10px; right: auto; }
+
+.grilla-an {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  outline: 1px solid var(--color-grilla);
+  background-image:
+    linear-gradient(to right, var(--color-grilla) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grilla) 1px, transparent 1px);
+}
+.etiqueta-col, .etiqueta-fila {
+  position: absolute;
+  padding: 0 2px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #b3261e;
+  font: 700 var(--tam-etiqueta, 10px)/1.2 Consolas, monospace;
+}
+.etiqueta-col { top: 2px; transform: translateX(-50%); }
+.etiqueta-fila { left: 2px; transform: translateY(-50%); }
+.celda-activa {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(240, 138, 36, 0.3);
+  outline: 2px solid var(--naranja);
+}
+.visor-celda { font: 700 0.85rem Consolas, monospace; color: var(--naranja-oscuro); }
+
+.ayuda { font-size: 0.8rem; color: var(--texto-suave); margin: -6px 0 12px; }
+.visor-resolucion {
+  margin-left: 10px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--fondo-suave);
+  color: var(--azul);
+  font: 700 0.72rem Consolas, monospace;
+}
+.resolucion {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 4;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--azul);
+  font: 700 0.72rem Consolas, monospace;
+  pointer-events: none;
+}
+.miniatura .resolucion { bottom: auto; top: 70px; }
+
+/* Barra de edición del visor (administrador) */
+.barra-edicion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 10px 20px;
+  background: #fff6ec;
+  border-bottom: 2px solid var(--naranja);
+  font-size: 0.85rem;
+}
+.barra-edicion label { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.barra-edicion input {
+  font: inherit;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 6px 10px;
+  width: 190px;
+  max-width: 100%;
+}
+.barra-edicion #editar-etiqueta { width: 280px; }
+.barra-edicion input:disabled { background: #eef1f8; }
+.barra-edicion .boton { padding: 7px 14px; font-size: 0.82rem; }
+.barra-edicion .boton:disabled { opacity: 0.45; cursor: default; }
+#crear-boton.activo { background: var(--azul); }
+.editar-posicion { font: 700 0.8rem Consolas, monospace; color: var(--azul); }
+.editar-ayuda { flex-basis: 100%; color: var(--texto-suave); font-size: 0.8rem; }
+.modo-admin .visor-escena .lienzo { cursor: default; }
+.modo-admin .visor-escena .lienzo.creando { cursor: crosshair; }
+.modo-admin .marcador { animation: none; touch-action: none; cursor: grab; }
+.marcador.seleccionado { box-shadow: 0 0 0 4px var(--naranja); }
+.visor-lista li.seleccionado { background: #fff6ec; border-radius: 8px; outline: 1px solid var(--naranja); }
+
+/* Pantallas medianas y pequeñas */
+@media (max-width: 860px) {
+  .bloque, .contacto-grid { grid-template-columns: 1fr; gap: 28px; }
+  .bloque-invertido .bloque-imagen { order: 0; }
+  .visor-cuerpo { grid-template-columns: 1fr; }
+  .visor-lado { border-left: 0; border-top: 1px solid var(--borde); }
+  .visor-escena { padding: 16px 48px; }
+  .presentacion { grid-template-columns: 1fr; gap: 20px; }
+  .presentacion-menu { position: static; max-height: none; }
+}
+
+@media (max-width: 560px) {
+  .barra { padding: 10px 16px; }
+  .marca { margin-bottom: -10px; }
+  .marca-logo { width: 100px; height: 40px; }
+  .menu { gap: 12px; }
+  .menu a:not(.boton) { display: none; }
+  .seccion { padding-block: 48px; }
+  .hero { padding-block: 40px; }
+  .visor-escena { padding: 12px; }
+  .visor-nav { top: auto; bottom: 8px; transform: none; }
+  .carrusel-nav { width: 38px; height: 38px; font-size: 1.4rem; }
+  .carrusel-anterior { left: 8px; }
+  .carrusel-siguiente { right: 8px; }
+  .carrusel-miniatura { flex-basis: 84px; }
+}
+
+.miniatura-id, .insignia, .miniatura-titulo { z-index: 2; }
+
+/* Planos */
+.planos-vacio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 28px 32px;
+  border: 2px dashed var(--borde);
+  border-radius: var(--radio);
+  background: #fff;
+}
+.planos-vacio p { margin: 0; max-width: 640px; color: var(--texto-suave); }
+.planos-vacio strong { color: var(--azul); }
+.rejilla-planos:empty { display: none; }
+.miniatura-plano { aspect-ratio: 4 / 3; background: #fff; }
+.miniatura-plano img { object-fit: contain; }
+
+/* Móvil: versión de una columna para celular (movil.html). En pantallas grandes
+   se muestra como una columna del ancho de un teléfono. */
+.pagina-movil { background: var(--fondo-suave); padding-bottom: 72px; }
+.movil, .movil-cabecera, .pagina-movil .pie { width: 100%; max-width: 480px; margin-inline: auto; }
+.movil { background: var(--fondo); box-shadow: 0 0 40px rgba(8, 24, 92, 0.08); }
+/* Solo tarjetas, de dos en dos y a todo el ancho */
+.movil .rejilla { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px; }
+.movil .miniatura-id, .movil .miniatura-titulo, .movil .insignia { display: none; }
+
+.movil-cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 10px 10px 8px;
+  background: var(--azul);
+  color: #fff;
+}
+.movil-logo {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+/* Ocho pestañas en una rejilla de cinco de ancho y dos filas */
+.movil-pestanas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.movil-pestanas a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 4px 2px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.15;
+}
+.movil-pestanas a:hover { background: rgba(255, 255, 255, 0.2); }
+.movil-pestanas a.activo { background: #fff; color: var(--azul); }
+.movil-pestanas .movil-pestana-contacto { background: var(--naranja); }
+
+.movil-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  max-width: 480px;
+  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid var(--borde);
+  box-shadow: 0 -6px 20px rgba(8, 24, 92, 0.08);
+}
+.movil-inferior button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--azul);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.movil-inferior button:hover { color: var(--naranja); }
+.movil-inferior svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pagina-movil .barra-admin { position: static; max-width: 480px; margin-inline: auto; }
+
+/* Diseñador: área de trabajo con grilla en píxeles y herramientas a la izquierda */
+.editor {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 84px 1fr 210px;
+  height: 100%;
+}
+/* La página del editor ocupa exactamente la pantalla y no se desplaza: el área
+   de trabajo queda estática entre la barra superior y el pie. */
+.pagina-editor { height: 100vh; min-height: 0; overflow: hidden; }
+.pagina-editor main { flex: 1; min-height: 0; }
+.pagina-editor .editor { flex: 1; min-height: 0; }
+.pagina-editor .pie { padding-block: 10px; }
+.herramientas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 8px;
+  overflow-y: auto;
+  background: var(--fondo-suave);
+  border-right: 1px solid var(--borde);
+}
+.herramientas-titulo {
+  margin: 0 0 4px;
+  color: var(--texto-suave);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.herramienta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  color: var(--azul);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+.herramienta svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.herramienta:hover { background: #fff; border-color: var(--borde); }
+.herramienta.activo { background: var(--azul); color: #fff; }
+.herramientas-separador { height: 1px; margin: 4px 0; background: var(--borde); }
+
+.area { position: relative; overflow: hidden; background: #fff; cursor: crosshair; touch-action: none; }
+.area.modo-texto { cursor: text; }
+.area svg { position: absolute; inset: 0; display: block; }
+.area line { stroke-width: 1; shape-rendering: crispEdges; }
+.g-fina { stroke: #f2f4fa; stroke-width: 0.5; }
+.g-media { stroke: #e6e9f4; stroke-width: 0.5; }
+.g-gruesa { stroke: #d3d9ec; stroke-width: 0.75; }
+.g-rotulo { font: 600 10px Consolas, monospace; fill: #8590b3; }
+.t-lapiz { fill: none; stroke: var(--azul); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.t-forma { fill: none; stroke: var(--naranja-oscuro); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.area .t-forma line { stroke-width: 2.5; shape-rendering: auto; }
+.t-forma .relleno { fill: var(--naranja); }
+.t-etiqueta rect { fill: var(--azul); }
+.t-etiqueta text { fill: #fff; font: 600 13px "Montserrat", sans-serif; }
+.t-etiqueta circle { fill: var(--naranja); stroke: #fff; stroke-width: 2; }
+.area-entrada {
+  position: absolute;
+  z-index: 2;
+  width: 200px;
+  padding: 4px 8px;
+  transform: translate(8px, -50%);
+  border: 2px solid var(--azul);
+  border-radius: 6px;
+  font: 600 13px "Montserrat", sans-serif;
+}
+.area-posicion {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(8, 24, 92, 0.85);
+  color: #fff;
+  font: 700 0.72rem Consolas, monospace;
+  pointer-events: none;
+}
+.area-posicion:empty { display: none; }
+.t-poligono polygon { fill: rgba(240, 138, 36, 0.18); stroke: var(--naranja-oscuro); stroke-width: 2; stroke-linejoin: round; }
+.t-poligono.abierto polygon { stroke-dasharray: 5 4; }
+.area .t-poligono line { stroke: var(--naranja-oscuro); stroke-dasharray: 4 4; shape-rendering: auto; }
+.t-poligono circle { fill: #fff; stroke: var(--naranja-oscuro); stroke-width: 2; }
+.area .t-medida line { stroke: #b3261e; stroke-width: 2; shape-rendering: auto; }
+.t-medida circle { fill: #b3261e; }
+.t-medida text {
+  fill: #b3261e;
+  font: 700 12px Consolas, monospace;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+#iman { pointer-events: none; }
+#iman g { fill: none; stroke: #0a8f3c; stroke-width: 2; }
+
+/* Panel derecho de escala: módulo de píxeles y su equivalencia en metros */
+.escala-panel {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  background: var(--fondo-suave);
+  border-left: 1px solid var(--borde);
+  font-size: 0.82rem;
+}
+.escala-panel h2 { margin: 0 0 4px; color: var(--azul); font-size: 1rem; }
+.escala-ayuda { margin: 0 0 12px; color: var(--texto-suave); font-size: 0.75rem; line-height: 1.4; }
+.escala-casillas { display: grid; gap: 10px; }
+.escala-casillas label { display: grid; gap: 4px; font-weight: 700; color: var(--azul); }
+.escala-campo {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.escala-campo input { flex: 1; min-width: 0; padding: 7px 10px; border: 0; font: 700 0.95rem Consolas, monospace; }
+.escala-campo span { padding: 0 10px; color: var(--texto-suave); font-weight: 600; }
+.escala-datos { display: grid; gap: 2px; margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--borde); }
+.escala-datos dt { color: var(--texto-suave); font-size: 0.72rem; }
+.escala-datos dd { margin: 0 0 8px; color: var(--azul); font: 700 0.85rem Consolas, monospace; }
+@media (max-width: 860px) {
+  .editor { grid-template-columns: 72px 1fr 160px; }
+}
+.panel-recuadro {
+  padding: 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel-imagen { display: grid; gap: 8px; }
+.panel-imagen .boton { width: 100%; padding: 8px 6px; font-size: 0.78rem; white-space: nowrap; cursor: pointer; }
+.panel-imagen-info { margin: 0; color: var(--texto-suave); font-size: 0.72rem; line-height: 1.4; overflow-wrap: anywhere; }
+.panel-imagen-info:empty { display: none; }
+
+/* Botón Escala del panel derecho y su ventana centrada (Aceptar, Cancelar, Aplicar) */
+.panel-escala { display: grid; gap: 6px; }
+.panel-escala .boton { width: 100%; padding: 8px 6px; font-size: 0.82rem; }
+.panel-escala-resumen { margin: 0; color: var(--azul); font: 700 0.72rem Consolas, monospace; text-align: center; }
+.dialogo {
+  width: min(380px, calc(100vw - 32px));
+  padding: 20px;
+  border: 0;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  font-size: 0.85rem;
+}
+.dialogo::backdrop { background: rgba(5, 12, 48, 0.55); }
+.dialogo h2 { margin: 0 0 4px; color: var(--azul); font-size: 1.15rem; }
+.dialogo-acciones { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.dialogo-acciones .boton { padding: 8px 16px; font-size: 0.82rem; }
+
+/* Cuadro de coordenadas de la línea de medida: sigue al cursor */
+.cuadro-coordenadas {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 4px;
+  min-width: 180px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(8, 24, 92, 0.92);
+  color: #fff;
+  box-shadow: var(--sombra);
+  font: 0.72rem Consolas, monospace;
+  pointer-events: none;
+}
+.cuadro-coordenadas div { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: baseline; }
+.cuadro-coordenadas span { color: rgba(255, 255, 255, 0.7); }
+.cuadro-coordenadas strong { text-align: right; }
+.cuadro-coordenadas small { grid-column: 2; text-align: right; color: rgba(255, 255, 255, 0.6); font-size: 0.66rem; }
+.cuadro-coordenadas div:nth-child(4) strong { color: var(--naranja); }
+
+/* Puntero: marco del objeto seleccionado y asas de sus vértices */
+.sel-marco { fill: none; stroke: #1a73e8; stroke-width: 1; stroke-dasharray: 4 3; pointer-events: none; }
+.asa { fill: #fff; stroke: #1a73e8; stroke-width: 2; cursor: grab; }
+
+/* Medidas de los lados del polígono, como las de la línea */
+.t-poligono text {
+  fill: var(--naranja-oscuro);
+  font: 700 12px Consolas, monospace;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.herramientas-subtitulo {
+  margin: 4px 0 0;
+  padding-top: 6px;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Botón Formas y su menú (Bandera, Equis, Punto, Chulo) */
+.herramienta-grupo { position: relative; display: grid; }
+#boton-formas { position: relative; }
+#boton-formas::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  border: 4px solid transparent;
+  border-right-color: currentColor;
+  border-bottom-color: currentColor;
+  opacity: 0.7;
+}
+.menu-formas {
+  position: fixed;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(2, 72px);
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--sombra);
+}
+.menu-formas[hidden] { display: none; }
+.menu-formas button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  color: var(--azul);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+.menu-formas svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.menu-formas button:hover { background: var(--fondo-suave); border-color: var(--borde); }
+.menu-formas button[aria-checked="true"] { background: var(--azul); color: #fff; }
+
+/* Ventana para elegir la imagen de fondo: miniaturas de la galería */
+.dialogo-imagenes { width: min(720px, calc(100vw - 32px)); }
+.selector-imagenes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  max-height: min(60vh, 520px);
+  overflow-y: auto;
+  padding: 2px;
+}
+.selector-imagen {
+  position: relative;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--fondo-suave);
+  aspect-ratio: 1;
+}
+.selector-imagen img { width: 100%; height: 100%; object-fit: cover; }
+.selector-imagen span {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(8, 24, 92, 0.85);
+  color: #fff;
+  font: 700 0.68rem Consolas, monospace;
+}
+.selector-imagen:hover, .selector-imagen:focus-visible { border-color: var(--naranja); outline: none; }
+.dialogo-acciones label.boton { cursor: pointer; }
+.boton-nuevo { width: 100%; padding: 10px 6px; font-size: 0.78rem; white-space: nowrap; }
+.panel-acciones { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.boton-icono {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  border: 2px solid var(--azul);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--azul);
+}
+.boton-icono:hover { background: var(--azul); color: #fff; }
+.boton-icono svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Proyecto: etapas */
+.subtitulo-seccion {
+  margin: 40px 0 20px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--azul);
+  text-align: center;
+}
+.etapas {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.etapa {
+  position: relative;
+  padding: 44px 20px 22px;
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--azul);
+  border-radius: var(--radio);
+  background: #fff;
+  text-align: center;
+}
+.etapa-numero {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 4px solid var(--fondo-suave);
+  border-radius: 50%;
+  background: var(--azul);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.etapa h3 { margin: 0; color: var(--azul); font-size: 1.15rem; }
+.etapa p { margin: 6px 0 0; color: var(--texto-suave); }
+.etapa-estado {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #fff6ec;
+  color: var(--naranja-oscuro);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.etapa-proyectada { border-top-style: dashed; border-top-color: var(--naranja); }
+.etapa-proyectada .etapa-numero { background: var(--naranja); }
+
+.ficha .ficha-tipos tfoot td { text-align: right; }
+.ficha .ficha-tipos tfoot td:first-of-type { text-align: center; }
+
+/* Datos del proyecto: indicadores con íconos y gráficos de apoyo */
+.kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 0 0 14px; padding: 0; list-style: none; }
+.kpi { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1px solid var(--borde); border-radius: 10px; background: var(--blanco); }
+.kpi svg { flex: none; width: 34px; height: 34px; padding: 7px; border-radius: 8px; background: #e7ebfa; color: var(--azul); fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.kpi div { display: grid; min-width: 0; }
+.kpi span { font-size: 0.7rem; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi b { font-size: 1.15rem; color: var(--texto); font-variant-numeric: tabular-nums; }
+.kpi small { font-size: 0.7rem; color: var(--texto-suave); }
+.ficha-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.mini-graf { margin: 0; padding: 14px; border: 1px solid var(--borde); border-radius: 10px; }
+.mini-graf figcaption { margin-bottom: 10px; font-weight: 700; font-size: 0.85rem; }
+.mini-graf figcaption small { margin-left: 6px; color: var(--texto-suave); font-weight: 400; }
+.comp-barra { display: flex; gap: 2px; height: 34px; }
+.comp-seg { display: grid; place-items: center; min-width: 34px; color: #fff; font-size: 0.75rem; }
+.comp-seg:first-child { border-radius: 4px 0 0 4px; }
+.comp-seg:last-child { border-radius: 0 4px 4px 0; }
+.comp-seg.ficha-s { background: #8a90a8; } .comp-seg.ficha-c { background: #3e59d9; } .comp-seg.ficha-p { background: #f39a27; }
+.comp-leyenda { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 0.75rem; color: var(--texto-suave); }
+.comp-leyenda .ficha-punto { margin: 0 6px 0 0; vertical-align: -1px; }
+.tip-lista { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.tip-lista li { display: grid; grid-template-columns: 92px 1fr 30px; gap: 8px; align-items: center; font-size: 0.75rem; }
+.tip-lista span { color: var(--texto); font-weight: 600; }
+.tip-lista span small { margin-left: 4px; color: var(--texto-suave); font-weight: 400; }
+.tip-lista b { text-align: right; font-variant-numeric: tabular-nums; }
+.tip-barra { height: 10px; width: calc(var(--v) * 100%); min-width: 3px; border-radius: 0 3px 3px 0; }
+.tip-barra.ficha-c { background: #3e59d9; } .tip-barra.ficha-p { background: #f39a27; }
+@media (max-width: 1000px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ficha-mini { grid-template-columns: 1fr; } }
+.mini-graf .comp-titulo { margin: 18px 0 10px; }
+
+/* Ficha del proyecto en bloques ordenados: terreno, torres, tipologías, parqueaderos */
+.bloque-ficha { margin-top: 22px; }
+.bloque-cab { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.bloque-cab svg { flex: none; width: 38px; height: 38px; padding: 8px; border-radius: 9px; background: #e7ebfa; color: var(--azul); fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bloque-cab h2 { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: 1.2rem; color: var(--azul); }
+.bloque-cab p { margin: 0; font-size: 0.8rem; color: var(--texto-suave); }
+.ficha .t-ficha th, .ficha .t-ficha td { text-align: right; }
+.ficha .t-ficha th:first-child { text-align: left; }
+.ficha .t-ficha td:nth-child(2), .ficha .t-ficha thead th:nth-child(2) { text-align: center; }
+.ficha .t-terreno td:nth-child(2) { text-align: left; color: var(--texto-suave); }
+.ficha .t-terreno b { color: var(--azul); }
+.ficha .t-tipos td:nth-child(3), .ficha .t-tipos thead th:nth-child(3) { text-align: left; }
+.ficha .t-parq { max-width: 640px; }
+.ficha .t-ficha tfoot th[colspan] { text-align: right; }
+.t-terreno, .t-parq { table-layout: auto; }
+.ficha-tabla-corta { max-width: 640px; }
+.ficha .t-ficha tfoot td { text-align: right; }
+.ficha .t-parq td { text-align: right; }
+
+/* Terreno: lote, ocupación y construcción en figuras */
+.terreno-graf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 12px; }
+.terreno-graf figure { margin: 0; padding: 12px; border: 1px solid var(--borde); border-radius: 10px; text-align: center; }
+.terreno-graf figcaption { display: grid; margin-top: 6px; font-size: 0.78rem; color: var(--texto-suave); }
+.terreno-graf figcaption b { color: var(--texto); font-size: 0.85rem; }
+.t-svg { display: block; width: 100%; max-width: 230px; height: 200px; margin: 0 auto; font-family: "Montserrat", sans-serif; }
+.t-lote { fill: #eef6ea; stroke: #7aa86a; stroke-width: 1.5; }
+.t-lote-canto { fill: #b9d4ad; } .t-lote-lado { fill: #9cc08d; }
+.t-num { fill: var(--azul); font-size: 15px; font-weight: 800; }
+.t-sub { fill: var(--texto-suave); font-size: 9.5px; }
+@media (max-width: 760px) { .terreno-graf { grid-template-columns: 1fr; } }
+
+/* Ilustraciones de tipologías (plantas a escala) y parqueaderos (íconos) */
+.ilus-graf { display: grid; grid-template-columns: repeat(2, minmax(0, auto)); gap: 14px; margin-bottom: 12px; }
+.ilus-graf figure { margin: 0; padding: 14px; border: 1px solid var(--borde); border-radius: 10px; display: grid; align-content: space-between; justify-items: center; }
+.ilus-graf figcaption { display: grid; margin-top: 8px; text-align: center; font-size: 0.78rem; color: var(--texto-suave); }
+.ilus-graf figcaption b { color: var(--texto); font-size: 0.85rem; }
+.planta-svg { height: auto; max-width: 100%; font-family: "Montserrat", sans-serif; }
+.planta-u rect { fill: #f39a27; stroke: #fff; stroke-width: 2; }
+.planta-resto rect { fill: #3e59d9; stroke: #fff; stroke-width: 2; }
+.planta-svg text { fill: #fff; font-size: 13px; font-weight: 700; }
+.planta-svg .planta-m2 { font-size: 10.5px; font-weight: 500; }
+.planta-svg .planta-val { font-weight: 700; }
+.planta-u:hover rect { fill: #a9570a; }
+.parq-svg { width: 100%; max-width: 360px; height: auto; font-family: "Montserrat", sans-serif; fill: #6c7290; }
+.parq-lab { font-size: 11px; font-weight: 700; fill: var(--texto-suave); }
+.parq-n { font-size: 11px; font-weight: 700; fill: var(--texto); }
+@media (max-width: 760px) { .ilus-graf { grid-template-columns: 1fr; } }
+.planta-sep { stroke: rgba(255, 255, 255, 0.5); }
+.ilus-graf figcaption strong { color: var(--azul); }
+.tipos-total { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin: 0; padding: 12px 16px; border-radius: 10px; background: #e7ebfa; color: var(--azul); }
+.tipos-total span { font-weight: 600; }
+.tipos-total b { font-size: 1.1rem; font-weight: 800; }
+
+/* Ficha emergente de cada unidad en las plantas tipo */
+.planta-svg g[role=button] { cursor: pointer; outline: none; }
+.planta-svg g.activa rect, .planta-svg g[role=button]:focus-visible rect { stroke: var(--azul-oscuro); stroke-width: 3; }
+.planta-u.activa rect { fill: #a9570a; }
+.planta-tip { position: absolute; z-index: 50; min-width: 220px; padding: 12px 14px; border: 1px solid var(--borde); border-top: 4px solid var(--naranja); border-radius: 8px; background: #fff; box-shadow: var(--sombra); font-size: 0.82rem; }
+.planta-tip b { display: block; margin-bottom: 6px; color: var(--azul); font-size: 0.95rem; }
+.planta-tip dl { display: grid; grid-template-columns: auto auto; gap: 3px 16px; margin: 0; }
+.planta-tip dt { color: var(--texto-suave); }
+.planta-tip dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.g-area { fill: var(--azul); font-size: 11px; font-weight: 800; }
+.ficha-3d + .ficha-tabla { margin-top: 14px; }
+
+/* Plantas tipo más gráficas: módulos grandes, área destacada */
+.ilus-plantas { grid-template-columns: 820fr 450fr; align-items: stretch; }
+.ilus-plantas figure { align-content: center; }
+.planta-svg rect { stroke: none; }
+.planta-u rect { fill: #f39a27; }
+.planta-u:hover rect, .planta-u.activa rect { fill: #d98a1f; }
+.planta-svg .pl-nom { fill: rgba(255, 255, 255, 0.85); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.planta-svg .pl-area { fill: #fff; font-size: 21px; font-weight: 800; }
+.planta-svg .pl-val { fill: #fff; font-size: 12.5px; font-weight: 700; }
+.planta-svg .pl-12 { fill: rgba(255, 255, 255, 0.9); font-size: 11px; font-weight: 600; }
+.planta-sep { stroke: rgba(255, 255, 255, 0.45); }
+.ilus-plantas figcaption { font-size: 0.85rem; }
+.ilus-plantas figcaption b { font-size: 1rem; }
+.planta-svg .pl-area.pl-s { font-size: 17px; }
+.planta-svg .pl-val.pl-s { font-size: 10.5px; }
+.planta-svg .pl-12.pl-s { font-size: 9.5px; }
+.planta-svg .pl-nom.pl-s { font-size: 11px; letter-spacing: 0.04em; }
+.planta-svg .pl-torre { fill: rgba(255, 255, 255, 0.75); font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; }
+.planta-svg .pl-torre.pl-s { font-size: 9.5px; }
+
+/* Tablas del proyecto: solo en modo administrador (?admin) */
+.solo-admin { display: none; }
+.modo-admin .solo-admin { display: block; padding-top: 18px; border-top: 2px dashed var(--naranja); }
+.solo-admin h3 { margin: 18px 0 8px; color: var(--azul); font-size: 1rem; }
+.solo-admin .admin-nota { margin: 6px 0; font-size: 0.82rem; color: var(--texto-suave); }
+.ficha .t-admin { table-layout: auto; }
+.ficha .t-admin td { text-align: right; }
+
+/* Sección 2: panel de tipologías junto al gráfico de torres */
+.torres-y-tipos { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: center; }
+.tipos-panel { padding: 14px; border-left: 1px solid var(--borde); }
+.tipos-panel h3 { margin: 0; font-size: 0.95rem; color: var(--texto); }
+.tipos-ayuda { margin: 2px 0 10px; font-size: 0.75rem; color: var(--texto-suave); }
+.tipos-grupo { margin-bottom: 12px; }
+.tipos-gnom { display: block; margin-bottom: 6px; font-size: 0.72rem; font-weight: 700; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.06em; }
+.tipos-cuadros { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px; }
+.tipo-cuadro { display: grid; place-content: center; text-align: center; border-radius: 6px; line-height: 1.15; }
+.tipo-cuadro span { font-size: 0.62rem; font-weight: 600; }
+.tipo-cuadro b { font-size: 0.78rem; font-weight: 800; }
+@media (max-width: 1000px) { .torres-y-tipos { grid-template-columns: 1fr; } .tipos-panel { border-left: 0; border-top: 1px solid var(--borde); } }
+.tipo-chico span { font-size: 0.52rem; }
+.tipo-chico b { font-size: 0.66rem; }
+
+.tipo-cuadro span, .tipo-cuadro b, .tipo-chico span, .tipo-chico b { font-size: 0.7rem; font-weight: 700; }
+.tipo-cuadro .tipo-precio { color: #ffc27a; font-weight: 800; }
+.tipo-cuadro span, .tipo-cuadro b { font-size: 0.6rem; white-space: nowrap; letter-spacing: -0.01em; }
+.tipo-cuadro .tipo-precio { color: #ffd23f; }
+.tipo-cuadro .tipo-precio { color: var(--naranja); }
+
+/* Ficha grande de tipología o torre */
+.tipo-cuadro[data-tip], .g-torre[data-torre] { cursor: pointer; }
+.tipo-cuadro[data-tip]:hover, .tipo-cuadro[data-tip]:focus-visible { outline: 3px solid var(--naranja); outline-offset: 2px; }
+.ficha-dialogo { width: min(980px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: 14px; box-shadow: 0 30px 80px rgba(8, 24, 92, 0.35); }
+.ficha-dialogo::backdrop { background: rgba(8, 24, 92, 0.55); }
+.ficha-dialogo-cerrar { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--fondo-suave); color: var(--azul); font-size: 1.4rem; cursor: pointer; }
+.ficha-dialogo-cuerpo { display: grid; grid-template-columns: 1.2fr 1fr; }
+.ficha-dialogo-imagen { display: grid; align-content: center; gap: 8px; padding: 24px; background: var(--fondo-suave); }
+.ficha-dialogo-imagen img, .ficha-dialogo-imagen svg { width: 100%; height: auto; border-radius: 8px; }
+.ficha-dialogo-imagen p { margin: 0; text-align: center; font-size: 0.8rem; color: var(--texto-suave); }
+.ficha-dialogo-imagen .atenuada { opacity: 0.25; }
+.ficha-dialogo-datos { padding: 28px 28px 24px; }
+.ficha-dialogo-etiqueta { margin: 0; color: var(--naranja); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ficha-dialogo-datos h3 { margin: 4px 0 14px; font-family: "Playfair Display", Georgia, serif; font-size: 1.8rem; color: var(--azul); }
+.ficha-dialogo-tabla { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.ficha-dialogo-tabla th, .ficha-dialogo-tabla td { padding: 8px 0; border-bottom: 1px solid var(--borde); }
+.ficha-dialogo-tabla th { text-align: left; font-weight: 500; color: var(--texto-suave); }
+.ficha-dialogo-tabla td { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ficha-dialogo-tabla .fila-destacada td { font-size: 1.15rem; color: var(--azul); }
+.ficha-dialogo-tabla .fila-precio td { font-size: 1.15rem; color: var(--naranja-oscuro); }
+@media (max-width: 760px) { .ficha-dialogo-cuerpo { grid-template-columns: 1fr; } }
+
+/* Bloque 3: planta tipo de las torres construidas */
+.ilus-una { grid-template-columns: minmax(0, 820px); justify-content: center; }
+.planta-c rect { fill: var(--azul); }
+.planta-c:hover rect, .planta-c.activa rect { fill: var(--azul-oscuro); }
+
+/* Implantación de las torres en el lote */
+.t-implantacion { max-width: 100%; }
+.t-lote-pol { fill: #4472c4; stroke: #2f528f; stroke-width: 1.5; }
+.t-torre-c { fill: #ed7d31; stroke: #ae5a21; }
+.t-torre-4 { fill: #ffd966; stroke: #bf9000; }
+.t-torre-nom { fill: #111; font-size: 20px; font-weight: 600; }
+.t-lote-txt { fill: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; }
+.t-implantacion g:hover rect { stroke-width: 3; }
+.t-svg.t-implantacion { width: 100%; max-width: 420px; height: auto; }
+.t-torre-nom { font-size: 26px; }
+.t-lote-txt { font-size: 22px; }
+
+/* Terreno: implantación en una columna, tres tarjetas apiladas en la otra */
+.terreno-dos { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: stretch; }
+.terreno-plano { display: grid; align-content: center; }
+.terreno-plano .t-svg.t-implantacion { max-width: 760px; }
+.terreno-cards { display: grid; gap: 12px; }
+.terreno-cards figure { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 14px; padding: 10px 14px; text-align: left; }
+.terreno-cards .t-svg { width: 120px; height: 110px; margin: 0; }
+.terreno-cards figcaption { margin: 0; }
+@media (max-width: 900px) { .terreno-dos { grid-template-columns: 1fr; } }
+.terreno-plano .t-svg.t-implantacion { max-width: none; width: 100%; }
+.terreno-plano { padding: 6px; }
+.terreno-cards figure { padding: 8px 14px; }
+.terreno-cards figcaption b { font-size: 0.95rem; }
+.terreno-cards figcaption { font-size: 0.8rem; }
+
+/* Tarjetas del terreno con el polígono del lote, animadas */
+.terreno-cards .t-svg.t-card { width: 130px; height: 100px; }
+.tc-lote { fill: #4472c4; stroke: #2f528f; stroke-width: 3; }
+.tc-lote-claro { fill: #8faadc; }
+.tc-canto { fill: #2f528f; }
+.tc-txt { fill: #fff; font-size: 64px; font-weight: 800; }
+.tc-txt-osc { fill: var(--azul); }
+.tc-huella.tc, .tc-prisma.tc .tc-frente { fill: #ed7d31; }
+.tc-huella.t4, .tc-prisma.t4 .tc-frente { fill: #ffd966; }
+.tc-prisma.tc .tc-lado { fill: #ae5a21; } .tc-prisma.tc .tc-tapa { fill: #f4b183; }
+.tc-prisma.t4 .tc-lado { fill: #bf9000; } .tc-prisma.t4 .tc-tapa { fill: #ffe699; }
+.tc-huella { animation: tc-aparecer 0.5s calc(var(--i) * 0.15s) both; }
+.tc-prisma { transform-box: fill-box; transform-origin: 50% 100%; animation: tc-crecer 0.7s calc(var(--i) * 0.12s) cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.terreno-cards figure:hover .tc-huella { animation-name: tc-aparecer-2; }
+.terreno-cards figure:hover .tc-prisma { animation-name: tc-crecer-2; }
+@keyframes tc-aparecer { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-aparecer-2 { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-crecer { from { transform: scaleY(0.05); } }
+@keyframes tc-crecer-2 { from { transform: scaleY(0.05); } }
+@media (prefers-reduced-motion: reduce) { .tc-huella, .tc-prisma { animation: none; } }
+.terreno-cards figure { grid-template-columns: 150px 1fr; }
+.terreno-cards .t-svg.t-card { width: 150px; height: 110px; }
+.tipos-cuadros { align-items: flex-end; }
+
+/* Gráfico de torres en axonometría isométrica (30°) */
+.g-iso { max-width: 640px; }
+.g-iso polygon { stroke: #fff; stroke-width: 0.6; stroke-linejoin: round; }
+.g-sotano-txt { fill: #fff; font-size: 7.5px; font-weight: 600; }
+
+/* Gráfico de torres en axonometría isométrica (30°) */
+.g-iso { max-width: 640px; }
+.g-iso polygon { stroke: #fff; stroke-width: 0.6; stroke-linejoin: round; }
+.g-sotano-txt { fill: #fff; font-size: 7.5px; font-weight: 600; }
+.g-sotano-txt { font-size: 8px; }
+
+/* Implantación en isométrica */
+.iso-lote-canto { fill: #2f528f; }
+.iso-torre.t-torre-c .iso-izq { fill: #ed7d31; } .iso-torre.t-torre-c .iso-der { fill: #ae5a21; } .iso-torre.t-torre-c .iso-tapa { fill: #f4b183; }
+.iso-torre.t-torre-4 .iso-izq { fill: #ffd966; } .iso-torre.t-torre-4 .iso-der { fill: #bf9000; } .iso-torre.t-torre-4 .iso-tapa { fill: #ffe699; }
+.t-iso polygon { stroke-linejoin: round; }
+.iso-torre:hover polygon { filter: brightness(1.1); }
+.t-iso .t-torre-nom { font-size: 24px; }
+.iso-piso { stroke: rgba(255, 255, 255, 0.45); stroke-width: 1; }
+
+/* Tarjetas del terreno con el polígono del lote, animadas */
+.terreno-cards .t-svg.t-card { width: 130px; height: 100px; }
+.tc-lote { fill: #4472c4; stroke: #2f528f; stroke-width: 3; }
+.tc-lote-claro { fill: #8faadc; }
+.tc-canto { fill: #2f528f; }
+.tc-txt { fill: #fff; font-size: 64px; font-weight: 800; }
+.tc-txt-osc { fill: var(--azul); }
+.tc-huella.tc, .tc-prisma.tc .tc-frente { fill: #ed7d31; }
+.tc-huella.t4, .tc-prisma.t4 .tc-frente { fill: #ffd966; }
+.tc-prisma.tc .tc-lado { fill: #ae5a21; } .tc-prisma.tc .tc-tapa { fill: #f4b183; }
+.tc-prisma.t4 .tc-lado { fill: #bf9000; } .tc-prisma.t4 .tc-tapa { fill: #ffe699; }
+.tc-huella { animation: tc-aparecer 0.5s calc(var(--i) * 0.15s) both; }
+.tc-prisma { transform-box: fill-box; transform-origin: 50% 100%; animation: tc-crecer 0.7s calc(var(--i) * 0.12s) cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.terreno-cards figure:hover .tc-huella { animation-name: tc-aparecer-2; }
+.terreno-cards figure:hover .tc-prisma { animation-name: tc-crecer-2; }
+@keyframes tc-aparecer { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-aparecer-2 { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-crecer { from { transform: scaleY(0.05); } }
+@keyframes tc-crecer-2 { from { transform: scaleY(0.05); } }
+@media (prefers-reduced-motion: reduce) { .tc-huella, .tc-prisma { animation: none; } }
+.t-implantacion .iso-torre[data-torre] { cursor: pointer; }
+.implantacion-tip table { width: 100%; border-collapse: collapse; margin: 4px 0; }
+.implantacion-tip th, .implantacion-tip td { padding: 4px 6px; border-bottom: 1px solid var(--borde); text-align: right; font-variant-numeric: tabular-nums; }
+.implantacion-tip th:first-child, .implantacion-tip td:first-child { text-align: center; }
+.implantacion-tip th { color: var(--texto-suave); font-weight: 600; font-size: 0.72rem; }
+.implantacion-tip td:last-child { color: var(--naranja-oscuro); font-weight: 700; }
+.implantacion-tip p { margin: 6px 0 0; font-size: 0.75rem; color: var(--texto-suave); }
+
+/* Tarjetas del terreno con el polígono del lote, animadas */
+.terreno-cards .t-svg.t-card { width: 130px; height: 100px; }
+.tc-lote { fill: #4472c4; stroke: #2f528f; stroke-width: 3; }
+.tc-lote-claro { fill: #8faadc; }
+.tc-canto { fill: #2f528f; }
+.tc-txt { fill: #fff; font-size: 64px; font-weight: 800; }
+.tc-txt-osc { fill: var(--azul); }
+.tc-huella.tc, .tc-prisma.tc .tc-frente { fill: #ed7d31; }
+.tc-huella.t4, .tc-prisma.t4 .tc-frente { fill: #ffd966; }
+.tc-prisma.tc .tc-lado { fill: #ae5a21; } .tc-prisma.tc .tc-tapa { fill: #f4b183; }
+.tc-prisma.t4 .tc-lado { fill: #bf9000; } .tc-prisma.t4 .tc-tapa { fill: #ffe699; }
+.tc-huella { animation: tc-aparecer 0.5s calc(var(--i) * 0.15s) both; }
+.tc-prisma { transform-box: fill-box; transform-origin: 50% 100%; animation: tc-crecer 0.7s calc(var(--i) * 0.12s) cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.terreno-cards figure:hover .tc-huella { animation-name: tc-aparecer-2; }
+.terreno-cards figure:hover .tc-prisma { animation-name: tc-crecer-2; }
+@keyframes tc-aparecer { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-aparecer-2 { from { opacity: 0; transform: scale(0.6); transform-origin: center; transform-box: fill-box; } }
+@keyframes tc-crecer { from { transform: scaleY(0.05); } }
+@keyframes tc-crecer-2 { from { transform: scaleY(0.05); } }
+@media (prefers-reduced-motion: reduce) { .tc-huella, .tc-prisma { animation: none; } }
+.iso-torre.t-torre-5 .iso-izq { fill: #f2b705; } .iso-torre.t-torre-5 .iso-der { fill: #a67c00; } .iso-torre.t-torre-5 .iso-tapa { fill: #ffd24d; }
+.tc-huella.t5, .tc-prisma.t5 .tc-frente { fill: #f2b705; } .tc-prisma.t5 .tc-lado { fill: #a67c00; } .tc-prisma.t5 .tc-tapa { fill: #ffd24d; }
+/* Tarjeta del lote: apartamentos por torre */
+.ap-graf { margin-top: 8px; }
+.ap-tit { display: block; font-size: 0.72rem; color: var(--texto-suave); }
+.ap-tit strong { color: var(--azul); font-size: 0.85rem; }
+.ap-barra { display: flex; gap: 2px; height: 16px; margin: 3px 0 4px; }
+.ap-barra span { display: grid; place-items: center; min-width: 22px; color: #3a2400; font-size: 0.62rem; font-weight: 800; }
+.ap-barra span:first-child { border-radius: 3px 0 0 3px; color: #fff; }
+.ap-barra span:last-child { border-radius: 0 3px 3px 0; }
+.ap-c { background: #ed7d31; } .ap-4 { background: #ffd966; } .ap-5 { background: #f2b705; }
+.ap-ley { display: flex; flex-wrap: wrap; gap: 2px 10px; margin: 0; padding: 0; list-style: none; font-size: 0.66rem; color: var(--texto-suave); }
+.ap-ley i { display: inline-block; width: 8px; height: 8px; margin-right: 4px; border-radius: 2px; }
+.ver-detalle { padding: 3px 9px; border: 0; border-radius: 999px; background: var(--azul); color: #fff; font: 700 0.68rem "Montserrat", sans-serif; cursor: pointer; white-space: nowrap; }
+.ver-detalle:hover { background: var(--naranja); }
+.planta-tip > .ver-detalle { float: right; margin: -2px 0 6px 10px; }
+.implantacion-tip td:nth-child(3) { color: var(--naranja-oscuro); font-weight: 700; }
+.implantacion-tip td:last-child { color: inherit; }
+
+/* Menú: Proyecto con submenú de planos */
+.menu-desplegable { position: relative; }
+.menu-desplegable > a::after { content: " ▾"; font-size: 0.7em; }
+.submenu { position: absolute; top: 100%; left: -12px; z-index: 30; display: none; min-width: 170px; padding: 8px 0; border-radius: 10px; background: #fff; box-shadow: var(--sombra); }
+.menu-desplegable:hover .submenu, .menu-desplegable:focus-within .submenu { display: grid; }
+.submenu a { padding: 8px 16px; color: var(--azul) !important; font-size: 0.88rem; }
+.submenu a:hover, .submenu a[aria-current="page"] { background: var(--fondo-suave); color: var(--naranja) !important; }
+
+/* Planos en PDF */
+.lista-pdf { display: grid; gap: 10px; max-width: 760px; margin: 0 auto; padding: 0; list-style: none; }
+.lista-pdf li { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border: 1px solid var(--borde); border-radius: 10px; background: #fff; }
+.pdf-icono { display: grid; place-items: center; width: 42px; height: 48px; border-radius: 6px; background: #c62828; color: #fff; font-size: 0.75rem; font-weight: 800; }
+.lista-pdf b { flex: 1; color: var(--texto); }
+.pdf-acciones { display: flex; gap: 8px; }
+.lista-pdf:empty { display: none; }
+/* Diseñador: banderas numeradas y grupos del selector */
+.t-forma-rotulo { fill: #fff; stroke: #102779; stroke-width: 3px; paint-order: stroke; font: 800 14px "Montserrat", sans-serif; }
+.selector-grupo { grid-column: 1 / -1; margin: 8px 0 0; font-size: 0.75rem; font-weight: 700; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.06em; }
+.panel-banderas { display: grid; gap: 6px; }
+.panel-banderas label { font-size: 0.78rem; font-weight: 700; color: var(--azul); }
+.panel-banderas select { padding: 6px 8px; border: 1px solid var(--borde); border-radius: 8px; font: 600 0.8rem "Montserrat", sans-serif; }
+.t-forma-rotulo.t-forma-ct { stroke: #a9570a; }
+
+/* Plantas tipo en axonometría (js/axonometria.js): tres caras por cuadro */
+.planta-ax polygon { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1; stroke-linejoin: round; }
+.planta-u .ax-tapa { fill: #f39a27; }
+.planta-u .ax-izq { fill: #c27a1f; }
+.planta-u .ax-der { fill: #8c5516; }
+.planta-resto .ax-tapa:not([fill^="url"]) { fill: #3e59d9; }
+.planta-resto .ax-izq { fill: #324bb4; }
+.planta-resto .ax-der { fill: #263a8e; }
+.planta-u:hover .ax-tapa, .planta-u.activa .ax-tapa { fill: #d98a1f; }
+.planta-u:hover .ax-izq, .planta-u.activa .ax-izq { fill: #9a4f08; }
+.planta-u:hover .ax-der, .planta-u.activa .ax-der { fill: #763c06; }
+.planta-svg g.activa polygon, .planta-svg g[role=button]:focus-visible polygon { stroke: var(--azul-oscuro); stroke-width: 2; }
+.planta-ax text { pointer-events: none; }
+
+/* Gráfico circular del área del lote: huellas de las torres y área libre en gris */
+.ap-libre { background: #c9ced9; }
+.pie-lote { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.pie-svg { flex: none; width: 96px; height: 96px; transform: none; }
+.pie-svg circle { fill: none; stroke-width: 7; transform: rotate(0deg); }
+.pie-svg .pie-c { stroke: #ed7d31; } .pie-svg .pie-4 { stroke: #ffd966; } .pie-svg .pie-5 { stroke: #f2b705; } .pie-svg .pie-libre { stroke: #c9ced9; }
+.pie-svg circle:hover { stroke-width: 8; }
+.pie-pct { fill: var(--azul); font: 800 6px "Montserrat", sans-serif; }
+.pie-txt { fill: var(--texto-suave); font: 600 3.2px "Montserrat", sans-serif; }
+.pie-ley { display: grid; gap: 2px; margin-top: 4px; }
+.pie-nota { margin: 6px 0 0; font-size: 0.7rem; color: var(--texto-suave); }
+.pie-nota b { color: var(--texto); }
+
+/* Torres: gráfico a la izquierda y panel de tipologías más grande */
+.torres-y-tipos { grid-template-columns: minmax(0, 1fr) 480px; align-items: start; }
+.torres-y-tipos > .g-3d { margin: 8px auto 0 0; }
+.tipos-panel .tipos-cuadros { zoom: 1.4; }
+.tipos-panel h3 { font-size: 1.1rem; }
+.tipos-panel .tipos-ayuda { font-size: 0.82rem; }
+.tipos-panel .tipos-gnom { font-size: 0.8rem; }
+@media (max-width: 1000px) { .torres-y-tipos { grid-template-columns: 1fr; } }
+
+/* Espacio libre marcado con una X y tipologías debajo de "2. Torres" */
+.tipos-vacio { align-self: stretch; min-height: 240px; border: 2px solid var(--borde); border-radius: 10px;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--borde) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to top left, transparent calc(50% - 1px), var(--borde) 50%, transparent calc(50% + 1px)); }
+.torres-y-tipos { align-items: stretch; }
+.bloque-ficha > .tipos-panel { margin-top: 14px; padding: 14px 0 0; border-left: 0; border-top: 1px solid var(--borde); display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 40px; }
+.bloque-ficha > .tipos-panel > h3, .bloque-ficha > .tipos-panel > .tipos-ayuda { flex-basis: 100%; margin: 0; }
+.bloque-ficha > .tipos-panel .tipos-grupo { margin-bottom: 0; }
+
+/* Recuadro X: planta tipo del piso elegido */
+.tipos-vacio.con-imagen { display: grid; align-content: center; justify-items: center; gap: 8px; padding: 12px; background: #fff; }
+.vacio-tit { margin: 0; display: grid; text-align: center; font-size: 0.78rem; color: var(--texto-suave); }
+.vacio-tit b { color: var(--texto); font-size: 0.9rem; }
+.vacio-planta { width: 100%; max-width: 300px; height: auto; }
+.g-nivel.sel path { stroke: var(--naranja); stroke-width: 1.6; }
+.g-nivel { cursor: pointer; }
+.vacio-planta { max-width: none; width: 100%; }
+.tipos-vacio.con-imagen { padding: 8px; }
+
+/* La franja azul del logo queda fija bajo el navbar y baja junto con él al desplazarse */
+.banner { position: sticky; top: var(--alto-barra, 64px); z-index: 19; }
+
+/* Al bajar, la franja del logo se reduce a la mitad. El margen inferior compensa la altura
+   perdida para que el contenido no salte. */
+.banner-animado { transition: width 0.35s ease; }
+.banner { transition: margin-bottom 0.35s ease; }
+.banner.reducido .banner-animado { width: min(50%, 550px); }
+.banner.reducido { margin-bottom: calc(min(100%, 1100px) * 1252 / 17220); }
+@media (prefers-reduced-motion: reduce) { .banner-animado, .banner { transition: none; } }
+
+/* Módulo regularizado en axonometría: unidades azules y zona común naranja (js/modulos-ax.js) */
+.mod-ax polygon { stroke: rgba(255, 255, 255, 0.4); stroke-width: 1; stroke-linejoin: round; }
+.mod-ax .ax-tapa { fill: #7f93ec; } .mod-ax .ax-izq { fill: #3e59d9; } .mod-ax .ax-der { fill: #263a8e; }
+.mod-ax .planta-resto .ax-tapa, .mod-ax .mod-c .ax-tapa { fill: #f4ac66; }
+.mod-ax .planta-resto .ax-izq, .mod-ax .mod-c .ax-izq { fill: #f39a27; }
+.mod-ax .planta-resto .ax-der, .mod-ax .mod-c .ax-der { fill: #a9570a; }
+.mod-ax .planta-u:hover .ax-tapa, .mod-ax .planta-u.activa .ax-tapa { fill: #9fb0f0; }
+.mod-ax .planta-resto:hover .ax-tapa, .mod-ax .planta-resto.activa .ax-tapa { fill: #ffc791; }
+.mod-ax .pl-nom { font-size: 10px; } .mod-ax .pl-area { font-size: 16px; }
+.mod-ax text { pointer-events: none; }
+.mod-ax .mod-rotulo { fill: var(--azul); font-size: 15px; font-weight: 800; }
+.mod-torre { cursor: pointer; outline: none; }
+.mod-torre:hover polygon { filter: brightness(1.08); }
+.mod-torre:focus-visible polygon { stroke: var(--azul-oscuro); stroke-width: 1.5; }
+.t-svg.implantacion-mod { width: 100%; max-width: 520px; height: auto; margin: 10px auto 4px; }
+.ilus-una { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1100px; }
+@media (max-width: 900px) { .ilus-una { grid-template-columns: 1fr; } }
+
+/* Implantación 45: unidades azules y naranjas, zona común amarilla */
+.ilus-sola { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.mod-ax .mod-u.mod-naranja .ax-tapa { fill: #f4b183; } .mod-ax .mod-u.mod-naranja .ax-izq { fill: #ed7d31; } .mod-ax .mod-u.mod-naranja .ax-der { fill: #ae5a21; }
+.mod-ax .mod-c.mod-amarillo .ax-tapa { fill: #ffe699; } .mod-ax .mod-c.mod-amarillo .ax-izq { fill: #ffd966; } .mod-ax .mod-c.mod-amarillo .ax-der { fill: #bf9000; }
+.ilus-sola .t-svg.implantacion-mod { max-width: 760px; }
+
+/* Bloque 3: colores del bloque 4 (unidades naranja, zona común azul) */
+.ilus-una .mod-ax .mod-u .ax-tapa { fill: #f39a27; } .ilus-una .mod-ax .mod-u .ax-izq { fill: #c27a1f; } .ilus-una .mod-ax .mod-u .ax-der { fill: #8c5516; }
+.ilus-una .mod-ax .mod-c .ax-tapa { fill: #3e59d9; } .ilus-una .mod-ax .mod-c .ax-izq { fill: #324bb4; } .ilus-una .mod-ax .mod-c .ax-der { fill: #263a8e; }
+.ilus-una .mod-ax .planta-u:hover .ax-tapa, .ilus-una .mod-ax .planta-u.activa .ax-tapa { fill: #d98a1f; }
+.ilus-una .mod-ax .planta-resto:hover .ax-tapa, .ilus-una .mod-ax .planta-resto.activa .ax-tapa { fill: #6a82e6; }
+
+/* Bloque 4 ordenado: implantación 45 a la izquierda y las plantas de T4 y T5 apiladas a la derecha */
+.ilus-cuatro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ilus-cuatro > figure:first-child { grid-row: span 2; }
+.ilus-cuatro .t-svg.implantacion-mod { max-width: 100%; }
+.ilus-cuatro .planta-svg { width: 100% !important; }
+@media (max-width: 900px) { .ilus-cuatro { grid-template-columns: 1fr; } .ilus-cuatro > figure:first-child { grid-row: auto; } }
+.ilus-cuatro .planta-svg[aria-label="Planta tipo Torre 5"] { width: 55% !important; }
+
+/* Plantas tipo de T4 y T5 unidas en una sola tarjeta */
+.ilus-cuatro > figure:first-child { grid-row: auto; }
+.plantas-unidas { display: grid; align-content: center; justify-items: center; gap: 6px; }
+.plantas-unidas .planta-svg { width: 100% !important; }
+.plantas-unidas .planta-svg[aria-label="Planta tipo Torre 5"] { width: 55% !important; margin-top: 10px; padding-top: 14px; border-top: 1px dashed var(--borde); box-sizing: content-box; }
+
+/* Torres 4 y 5 según la imagen "TORRE 4 Y 5": tipos azules y amarillos, zona común naranja */
+.mod-ax .mod-u.mod-amarillo .ax-tapa { fill: #ffe699; } .mod-ax .mod-u.mod-amarillo .ax-izq { fill: #ffd966; } .mod-ax .mod-u.mod-amarillo .ax-der { fill: #bf9000; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo:hover .ax-tapa { fill: #fff0b3; }
+.ilus-cuatro .mod-ax .mod-u.mod-azul:hover .ax-tapa { fill: #9fb0f0; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo text, .ilus-cuatro .mod-ax .mod-u.mod-amarillo .pl-val { fill: #1a1a1a; }
+.mod-ax .pl-val { font-size: 9px; font-weight: 700; fill: #fff; }
+
+/* Bloque 4: un solo diagrama con las torres 4 y 5 */
+.ilus-cuatro.ilus-uno { grid-template-columns: minmax(0, 1040px); justify-content: center; }
+.ilus-uno figcaption span { display: block; margin-top: 2px; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .pl-val { fill: #1a1a1a; }
+
+/* Bloque 1: tonalidad inicial unificada. Lote azul; T1-T3 naranja, T4 amarillo, T5 dorado.
+   Cada torre usa un solo tono: la zona común es una variante más clara del mismo color. */
+.t-lote-pol { fill: #4472c4; stroke: #2f528f; }
+.iso-lote-canto { fill: #2f528f; }
+.terreno-plano .iso-torre.t-torre-c .mod-u .ax-tapa { fill: #f4b183; } .terreno-plano .iso-torre.t-torre-c .mod-u .ax-izq { fill: #ed7d31; } .terreno-plano .iso-torre.t-torre-c .mod-u .ax-der { fill: #ae5a21; }
+.terreno-plano .iso-torre.t-torre-c .mod-c .ax-tapa { fill: #f9d2b4; } .terreno-plano .iso-torre.t-torre-c .mod-c .ax-izq { fill: #f2a064; } .terreno-plano .iso-torre.t-torre-c .mod-c .ax-der { fill: #c97a40; }
+.terreno-plano .iso-torre.t-torre-4 .mod-u .ax-tapa { fill: #ffe699; } .terreno-plano .iso-torre.t-torre-4 .mod-u .ax-izq { fill: #ffd966; } .terreno-plano .iso-torre.t-torre-4 .mod-u .ax-der { fill: #bf9000; }
+.terreno-plano .iso-torre.t-torre-4 .mod-c .ax-tapa { fill: #fff2cc; } .terreno-plano .iso-torre.t-torre-4 .mod-c .ax-izq { fill: #ffe599; } .terreno-plano .iso-torre.t-torre-4 .mod-c .ax-der { fill: #d9b13a; }
+.terreno-plano .iso-torre.t-torre-5 .mod-u .ax-tapa { fill: #ffd24d; } .terreno-plano .iso-torre.t-torre-5 .mod-u .ax-izq { fill: #f2b705; } .terreno-plano .iso-torre.t-torre-5 .mod-u .ax-der { fill: #a67c00; }
+.terreno-plano .iso-torre.t-torre-5 .mod-c .ax-tapa { fill: #ffe38a; } .terreno-plano .iso-torre.t-torre-5 .mod-c .ax-izq { fill: #f7cc47; } .terreno-plano .iso-torre.t-torre-5 .mod-c .ax-der { fill: #c79a14; }
+.terreno-plano .iso-torre polygon { stroke: rgba(47, 82, 143, 0.55); stroke-width: 0.6; }
+
+/* Torres 4 y 5 (bloque 4 y planta del recuadro): tonos sólidos y serios, sin pasteles */
+.ilus-cuatro .mod-ax .mod-u.mod-azul .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-azul .ax-tapa { fill: #3e59d9; }
+.ilus-cuatro .mod-ax .mod-u.mod-azul .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-azul .ax-izq { fill: #324bb4; }
+.ilus-cuatro .mod-ax .mod-u.mod-azul .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-azul .ax-der { fill: #263a8e; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-tapa { fill: #e3a817; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-izq { fill: #b8860b; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-der { fill: #8a6408; }
+.ilus-cuatro .mod-ax .mod-c .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-tapa { fill: #f39a27; }
+.ilus-cuatro .mod-ax .mod-c .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-izq { fill: #c27a1f; }
+.ilus-cuatro .mod-ax .mod-c .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-der { fill: #8c5516; }
+.ilus-cuatro .mod-ax .mod-u.mod-azul:hover .ax-tapa { fill: #6a82e6; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo:hover .ax-tapa { fill: #f0c24a; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo text, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo text { fill: #fff; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .pl-val, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .pl-val { fill: #fff; }
+/* Planta de las torres 1 a 3 en el recuadro: mismos colores que el bloque 3 */
+.vacio-planta[aria-label*="1, 2 y 3"] .mod-u .ax-tapa { fill: #f39a27; } .vacio-planta[aria-label*="1, 2 y 3"] .mod-u .ax-izq { fill: #c27a1f; } .vacio-planta[aria-label*="1, 2 y 3"] .mod-u .ax-der { fill: #8c5516; }
+.vacio-planta[aria-label*="1, 2 y 3"] .mod-c .ax-tapa { fill: #3e59d9; } .vacio-planta[aria-label*="1, 2 y 3"] .mod-c .ax-izq { fill: #324bb4; } .vacio-planta[aria-label*="1, 2 y 3"] .mod-c .ax-der { fill: #263a8e; }
+
+/* Recuadro sin piso elegido: logotipo botánico tenue y aviso transparente */
+.tipos-vacio:not(.con-imagen) { position: relative; display: grid; place-items: center; background: #fff; }
+.tipos-vacio .vacio-logo { width: min(78%, 360px); height: auto; aspect-ratio: 1 / 1; opacity: 0.35; mix-blend-mode: multiply; }
+.tipos-vacio .vacio-aviso { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.04em; color: rgba(92, 28, 98, 0.55); pointer-events: none; }
+
+/* Torres 4 y 5: todas las tipologías del mismo color; solo las divide un trazo blanco */
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-tapa { fill: #3e59d9; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-izq { fill: #324bb4; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-amarillo .ax-der { fill: #263a8e; }
+.ilus-cuatro .mod-ax .mod-u.mod-amarillo:hover .ax-tapa { fill: #6a82e6; }
+.ilus-cuatro .mod-ax polygon, .vacio-planta[aria-label*="4 y 5"] polygon { stroke: #fff; stroke-width: 1.8; }
+
+/* Calle 63 y Carrera 2 junto al lote */
+.iso-calle { fill: #141414; stroke: #000; stroke-width: 0.8; stroke-linejoin: round; }
+.iso-calle-txt { fill: #fff; font-family: "Montserrat", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; }
+
+/* Torres 4 y 5: todas las tipologías en amarillo con letra negra */
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-tapa { fill: #f5c518; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-izq { fill: #d4a40a; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-der { fill: #a67c00; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u:hover .ax-tapa { fill: #ffd84a; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u text, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u text { fill: #111; }
+
+/* Zona común naranja de las torres 4 y 5 en un solo tono, sin costuras entre sus piezas */
+.ilus-cuatro .mod-ax .mod-c polygon.ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-c polygon.ax-tapa { stroke: #f39a27; stroke-width: 1.5; }
+.ilus-cuatro .mod-ax .mod-c polygon.ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-c polygon.ax-izq { stroke: #c27a1f; stroke-width: 1.5; }
+.ilus-cuatro .mod-ax .mod-c polygon.ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-c polygon.ax-der { stroke: #8c5516; stroke-width: 1.5; }
+
+/* Bloque 4: ubicación general junto a la planta tipo */
+.ilus-cuatro.ilus-uno { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr); max-width: none; justify-content: stretch; }
+.ubic-general { align-content: center; }
+.ubic-svg { width: 100%; }
+.ubic-svg .t-svg.t-implantacion { width: 100%; max-width: none; height: auto; }
+.ubic-marco { fill: rgba(225, 29, 29, 0.10); stroke: #e11d1d; stroke-width: 3; stroke-linejoin: round; }
+@media (max-width: 900px) { .ilus-cuatro.ilus-uno { grid-template-columns: 1fr; } }
+
+/* Norte: sigue la dirección de la Carrera 2 sobre el plano del lote */
+.iso-norte line { stroke: #1a1a1a; stroke-width: 4; stroke-linecap: round; }
+.iso-norte polygon { fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 1; stroke-linejoin: round; }
+.iso-norte text { fill: #1a1a1a; font-family: "Montserrat", sans-serif; font-size: 22px; font-weight: 800; }
+
+/* Torres 4 y 5 del lote: niveles que pasan de cristal transparente a sólido */
+.terreno-plano .nivel polygon { transition: fill 0.4s ease, stroke 0.4s ease; }
+.terreno-plano .nivel-vidrio polygon { fill: rgba(205, 228, 255, 0.14) !important; stroke: rgba(255, 255, 255, 0.8) !important; stroke-width: 0.6; }
+
+/* Etiquetas T1 a T5: insignias oscuras con letra blanca, fáciles de identificar */
+.t-etiquetas { pointer-events: none; }
+.t-etiquetas rect { fill: #0f1a3c; stroke: #fff; stroke-width: 2; }
+.t-etiquetas text { fill: #fff; font-family: "Montserrat", sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.02em; }
+
+/* Esquema del lote en 3D: se gira arrastrando */
+.lote3d { position: relative; width: 100%; height: clamp(340px, 46vw, 470px); cursor: grab; touch-action: none; user-select: none; }
+.lote3d.girando { cursor: grabbing; }
+.lote3d canvas { display: block; width: 100%; height: 100%; }
+.lote3d-ayuda { position: absolute; right: 12px; bottom: 8px; padding: 3px 10px; border-radius: 999px; background: rgba(15, 26, 60, 0.75); color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; pointer-events: none; transition: opacity 0.4s; }
+
+/* Lote en tierra: superficie y borde lateral (esquema SVG de respaldo, ubicación general y tarjetas) */
+.t-lote-pol { fill: #8c6a47; stroke: #5d452e; }
+.iso-lote-canto, .tc-canto { fill: #5d452e; }
+.tc-lote { fill: #8c6a47; stroke: #5d452e; }
+.tc-lote-claro { fill: #b08d66; }
+
+/* Lote: superficie verde y borde lateral café */
+.t-lote-pol { fill: #5b9a4d; stroke: #6b4a2f; }
+.iso-lote-canto, .tc-canto { fill: #6b4a2f; }
+.tc-lote { fill: #5b9a4d; stroke: #6b4a2f; }
+.tc-lote-claro { fill: #8fc27f; }
+
+/* Lote: verde oscuro tipo pasto */
+.t-lote-pol, .tc-lote { fill: #346f2a; }
+.tc-lote-claro { fill: #5f9a4f; }
+
+/* Tarjeta "Área del lote" con la paleta verde bosque, arena y tierra */
+.terreno-cards figure { background: #1a3b28; border-color: #9b7f55; }
+.terreno-cards figcaption { color: #c2baac; }
+.terreno-cards figcaption b { color: #f1ece2; }
+.terreno-cards .ap-tit { color: #c2baac; }
+.terreno-cards .ap-tit strong { color: #f1ece2; }
+.terreno-cards .ap-c, .terreno-cards .ap-ley i.ap-c { background: #9b7f55; }
+.terreno-cards .ap-4, .terreno-cards .ap-ley i.ap-4 { background: #c2baac; }
+.terreno-cards .ap-5, .terreno-cards .ap-ley i.ap-5 { background: #6f5a3a; }
+.terreno-cards .ap-barra span { color: #1a3b28; }
+.terreno-cards .ap-barra span:first-child { color: #f1ece2; }
+.terreno-cards .ap-barra .ap-5 { color: #f1ece2; }
+.terreno-cards .ap-ley { color: #c2baac; }
+.terreno-cards .ap-libre, .terreno-cards .ap-ley i.ap-libre { background: #3f6a52; }
+.terreno-cards .pie-svg .pie-c { stroke: #9b7f55; } .terreno-cards .pie-svg .pie-4 { stroke: #c2baac; } .terreno-cards .pie-svg .pie-5 { stroke: #6f5a3a; } .terreno-cards .pie-svg .pie-libre { stroke: #3f6a52; }
+.terreno-cards .pie-pct { fill: #f1ece2; }
+.terreno-cards .pie-txt { fill: #c2baac; }
+.terreno-cards .pie-nota { color: #c2baac; }
+.terreno-cards .pie-nota b { color: #f1ece2; }
+
+/* Card "Área del lote": composición compacta como la inicial (maqueta a la izquierda, datos a la derecha),
+   con la guía "Naturaleza premium": blanco, letra verde #1a3a28 y café #9c8056 en las rayas de título.
+   Se apoya en la cuadrícula y utilidades de Bootstrap 5 (css/vendor). */
+.terreno-cards { align-content: stretch; }
+.lote-card { height: 100%; display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; border: 1px solid #e4e0d6; border-radius: 14px; background: #fff; color: #1a3a28; }
+.lc-maqueta .t-svg.t-card { width: 150px; height: 104px; margin: 0; }
+.lc-titulo { margin: 0; padding-left: 10px; border-left: 4px solid #9c8056; font-family: "Playfair Display", Georgia, serif; font-size: 1.3rem; font-weight: 700; line-height: 1.1; color: #1a3a28; }
+.lc-valor { margin-top: 6px; padding-left: 14px; font-size: 2.2rem; font-weight: 800; line-height: 1; color: #1a3a28; font-variant-numeric: tabular-nums; }
+.lc-valor small { font-size: 1rem; font-weight: 600; color: #5c7a66; }
+.lc-bloque { padding-top: 12px; border-top: 1px solid #ece8de; }
+.lc-linea { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 6px; padding-left: 8px; border-left: 3px solid #9c8056; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a3c; }
+.lc-linea b { font-size: 0.95rem; letter-spacing: 0; text-transform: none; color: #1a3a28; font-variant-numeric: tabular-nums; }
+.lc-barra { display: flex; gap: 3px; height: 18px; margin-bottom: 6px; }
+.lc-barra span { display: grid; place-items: center; min-width: 24px; border-radius: 5px; font-size: 0.66rem; font-weight: 800; color: #fff; }
+.lc-barra .ap-c { background: #3e59d9; } .lc-barra .ap-4 { background: #f5c518; color: #4a3a00; } .lc-barra .ap-5 { background: #d9a800; color: #3d2f00; }
+.lc-ley { font-size: 0.72rem; color: #1a3a28; }
+.lc-ley li { display: flex; align-items: center; gap: 5px; }
+.lc-ley i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; }
+.lc-ley .ap-c { background: #3e59d9; } .lc-ley .ap-4 { background: #f5c518; } .lc-ley .ap-5 { background: #d9a800; } .lc-ley .ap-libre { background: #cfe0d3; box-shadow: inset 0 0 0 1px #a9bfae; }
+.lc-ley b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.lc-ley-col { display: grid; gap: 3px; min-width: 0; }
+.lc-dona { flex: none; }
+.lc-dona .pie-svg { width: 96px; height: 96px; }
+.lc-dona .pie-svg .pie-c { stroke: #3e59d9; } .lc-dona .pie-svg .pie-4 { stroke: #f5c518; } .lc-dona .pie-svg .pie-5 { stroke: #d9a800; } .lc-dona .pie-svg .pie-libre { stroke: #cfe0d3; }
+.lc-dona .pie-pct { fill: #1a3a28; } .lc-dona .pie-txt { fill: #4a6656; }
+.lc-indices { display: grid; gap: 8px; }
+.lc-indice { margin: 0; padding-left: 8px; border-left: 3px solid #9c8056; }
+.lc-indice span { display: block; font-size: 0.95rem; font-weight: 800; color: #1a3a28; }
+.lc-indice span b { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b5a3c; margin-right: 6px; }
+.lc-indice small { display: block; margin-top: 1px; font-size: 0.72rem; color: #4a6656; }
+
+/* Maqueta de la card: torres en azul */
+.lc-maqueta .tc-prisma.tc .tc-frente, .lc-maqueta .tc-prisma.t4 .tc-frente, .lc-maqueta .tc-prisma.t5 .tc-frente { fill: #3e59d9; }
+.lc-maqueta .tc-prisma.tc .tc-lado, .lc-maqueta .tc-prisma.t4 .tc-lado, .lc-maqueta .tc-prisma.t5 .tc-lado { fill: #263a8e; }
+.lc-maqueta .tc-prisma.tc .tc-tapa, .lc-maqueta .tc-prisma.t4 .tc-tapa, .lc-maqueta .tc-prisma.t5 .tc-tapa { fill: #f39a27; }
+
+/* Maqueta de la card: T4 y T5 en amarillo cristal */
+.lc-maqueta .tc-prisma.t4 .tc-frente, .lc-maqueta .tc-prisma.t5 .tc-frente { fill: #ffd62e; fill-opacity: 0.8; }
+.lc-maqueta .tc-prisma.t4 .tc-lado, .lc-maqueta .tc-prisma.t5 .tc-lado { fill: #c99600; fill-opacity: 0.8; }
+.lc-maqueta .tc-prisma.t4 .tc-tapa, .lc-maqueta .tc-prisma.t5 .tc-tapa { fill: #fff0a6; fill-opacity: 0.9; }
+
+/* Secciones 1 a 5: franja de color con el título y cards para su contenido */
+.ficha .bloque-ficha { --franja: #1a3a28; margin-top: 28px; padding-bottom: 22px; overflow: hidden; border: 1px solid #e0dccf; border-radius: 18px; background: #f6f4ee; box-shadow: 0 6px 20px rgba(26, 58, 40, 0.07); }
+.ficha .bloque-ficha:first-of-type { margin-top: 0; }
+.ficha .bloque-ficha:nth-of-type(1) { --franja: #1a3a28; }
+.ficha .bloque-ficha:nth-of-type(2) { --franja: #9c8056; }
+.ficha .bloque-ficha:nth-of-type(3) { --franja: #2f5a43; }
+.ficha .bloque-ficha:nth-of-type(4) { --franja: #6b5a3c; }
+.ficha .bloque-ficha:nth-of-type(5) { --franja: #4a6656; }
+.ficha .bloque-cab { margin: 0 0 18px; padding: 14px 24px; gap: 14px; background: var(--franja); color: #fff; }
+.ficha .bloque-cab svg { width: 42px; height: 42px; padding: 9px; background: rgba(255, 255, 255, 0.16); color: #fff; }
+.ficha .bloque-cab h2 { font-size: 1.3rem; color: #fff; }
+.ficha .bloque-cab p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.82); }
+.ficha .bloque-ficha > :not(.bloque-cab) { margin-left: 22px; margin-right: 22px; }
+/* Contenido en cards blancas */
+.ficha .ficha-3d, .ficha .terreno-graf figure, .ficha .ilus-graf figure, .ficha .terreno-cards .lote-card { background: #fff; border: 1px solid #e4e0d6; border-radius: 14px; box-shadow: 0 2px 10px rgba(26, 58, 40, 0.05); }
+.ficha .bloque-ficha > .tipos-panel { margin-top: 16px; padding: 16px 18px; border: 1px solid #e4e0d6; border-radius: 14px; background: #fff; box-shadow: 0 2px 10px rgba(26, 58, 40, 0.05); }
+.ficha .bloque-ficha > .tipos-total { margin-top: 16px; }
+.ficha .bloque-ficha > .ficha-3d { margin-top: 0; }
+
+/* Compactar: card "Área del lote" y esquema 3D sin espacios vacíos */
+.lote3d { height: clamp(300px, 34vw, 400px); }
+.ficha .terreno-dos { gap: 12px; }
+.lote-card { gap: 8px; padding: 14px 16px; }
+.lc-cab { align-items: center; }
+.lc-maqueta .t-svg.t-card { width: 118px; height: 80px; }
+.lc-titulo { font-size: 1.15rem; }
+.lc-valor { margin-top: 3px; font-size: 1.85rem; }
+.lc-bloque { padding-top: 8px; }
+.lc-linea { margin-bottom: 4px; font-size: 0.7rem; }
+.lc-barra { height: 16px; margin-bottom: 4px; }
+.lc-dona .pie-svg { width: 78px; height: 78px; }
+.lc-ley-col { gap: 1px; }
+.lc-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lc-dos .lc-indice span { font-size: 0.9rem; }
+.lc-dos .lc-indice span b { display: block; margin: 0 0 1px; font-size: 0.66rem; }
+.lc-dos .lc-indice small { font-size: 0.68rem; line-height: 1.25; }
+.ficha .terreno-plano { padding: 6px; }
+.ficha .terreno-plano figcaption { margin-top: 2px; }
+
+/* Encabezados de sección con el mismo azul del navbar */
+.ficha .bloque-ficha, .ficha .bloque-ficha:nth-of-type(n) { --franja: var(--azul); }
+
+/* Navbar sólido, como al inicio */
+.barra { background: var(--azul); box-shadow: none; }
+
+/* Franja azul del logo sólida, como al inicio */
+.banner { background: var(--azul); box-shadow: none; }
+.banner-animado { background: var(--azul); }
+.banner-animado img { -webkit-mask-image: none; mask-image: none; }
+
+/* Card "Área del lote" simplificada: una cifra principal, un reparto y tres indicadores */
+.lote-kpi { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 20px 22px; border: 1px solid #dfe3f1; border-radius: 16px; background: #fff; color: var(--azul); }
+.lk-etiqueta { display: block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #6a7396; }
+.lk-valor { margin: 2px 0 0; font-size: 2.6rem; font-weight: 800; line-height: 1.05; color: var(--azul); font-variant-numeric: tabular-nums; }
+.lk-valor small { font-size: 1.1rem; font-weight: 600; color: #6a7396; }
+.lk-chip { flex: none; padding: 5px 12px; border-radius: 999px; background: #e6f1e4; font-size: 0.78rem; font-weight: 800; color: #2d6a2a; }
+.lk-barra { display: flex; gap: 2px; height: 14px; overflow: hidden; border-radius: 7px; background: #eef0f7; }
+.lk-barra span { min-width: 6px; }
+.lk-c { background: #3e59d9; } .lk-4 { background: #f5c518; } .lk-5 { background: #d9a800; } .lk-libre { background: #cfe0d3; }
+.lk-ley { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; margin: 0; padding: 0; }
+.lk-ley li { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; color: #4a5378; }
+.lk-ley i { flex: none; width: 10px; height: 10px; border-radius: 3px; }
+.lk-ley b { margin-left: auto; font-weight: 800; color: var(--azul); font-variant-numeric: tabular-nums; }
+.lk-tile { height: 100%; padding: 10px 12px; border-radius: 12px; background: #f1f3fa; }
+.lk-tile b { display: block; font-size: 1.6rem; font-weight: 800; line-height: 1.1; color: var(--azul); font-variant-numeric: tabular-nums; }
+.lk-tile span { display: block; margin-top: 2px; font-size: 0.7rem; font-weight: 600; line-height: 1.25; color: #6a7396; }
+.lk-nota { margin: 0; font-size: 0.7rem; line-height: 1.4; color: #8089a8; }
+.ficha .terreno-cards .lote-kpi { box-shadow: 0 2px 10px rgba(16, 39, 121, 0.06); }
+
+/* Bloque 1 unificado: esquema 3D con margen y ficha técnica del lote al lado, en una sola card */
+.ficha .terreno-dos { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0; overflow: hidden; border: 1px solid #dfe3f1; border-radius: 16px; background: #fff; box-shadow: 0 2px 12px rgba(16, 39, 121, 0.07); }
+.ficha .terreno-dos > figure.terreno-plano { margin: 0; padding: 18px 18px 12px; border: 0; border-radius: 0; background: #fff; box-shadow: none; }
+.ficha .terreno-dos .lote3d { height: clamp(300px, 32vw, 380px); border-radius: 12px; background: #f6f8fc; }
+.ficha .terreno-dos > .terreno-cards { display: block; border-left: 1px solid #e3e7f4; background: #fff; }
+.ficha-lote { height: 100%; display: flex; flex-direction: column; }
+.fl-cab { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 18px; background: var(--azul); color: #fff; }
+.fl-cab span { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.fl-cab b { font-size: 0.78rem; font-weight: 600; color: #c9d3f7; }
+.fl-cuerpo { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 14px 18px 16px; }
+.fl-hero { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0; }
+.fl-hero small { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6a7396; }
+.fl-hero span { font-size: 2rem; font-weight: 800; line-height: 1; color: var(--azul); font-variant-numeric: tabular-nums; }
+.fl-hero em { font-style: normal; font-size: 0.95rem; font-weight: 600; color: #6a7396; }
+.fl-cuerpo .lk-barra { height: 12px; }
+.fl-ley { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0; font-size: 0.7rem; color: #4a5378; }
+.fl-ley li { display: flex; align-items: center; gap: 5px; }
+.fl-ley i { width: 9px; height: 9px; border-radius: 3px; }
+.fl-lista { margin: 4px 0 0; border-top: 1px solid #e8ebf5; }
+.fl-lista > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid #eef0f8; }
+.fl-lista dt { margin: 0; font-size: 0.76rem; font-weight: 600; color: #5b6488; }
+.fl-lista dd { margin: 0; font-size: 0.84rem; font-weight: 800; text-align: right; color: var(--azul); font-variant-numeric: tabular-nums; }
+.fl-lista dd small { display: block; font-size: 0.66rem; font-weight: 600; color: #8089a8; }
+@media (max-width: 900px) { .ficha .terreno-dos { grid-template-columns: 1fr; } .ficha .terreno-dos > .terreno-cards { border-left: 0; border-top: 1px solid #e3e7f4; } }
+.fl-lista > div { padding: 5px 0; }
+.fl-lista dd small { display: inline; margin-left: 6px; font-weight: 600; }
+.fl-cuerpo { gap: 6px; padding: 12px 18px 12px; }
+.ficha .terreno-dos > figure.terreno-plano { display: flex; flex-direction: column; justify-content: center; }
+.ficha .terreno-dos .lote3d { height: clamp(300px, 31vw, 360px); }
+
+/* Paleta naranja, blanco y azul en las secciones del contenido */
+.ficha .bloque-ficha { background: #f3f6fc; border-color: #dbe1f3; box-shadow: 0 4px 16px rgba(16, 39, 121, 0.07); }
+.lk-4 { background: #f39a27; } .lk-5 { background: #c96a0e; } .lk-libre { background: #dfe6f7; }
+.lk-chip { background: #fde9d3; color: #b45309; }
+.fl-lista { border-top-color: #e3e8f6; }
+.ficha .terreno-dos > .terreno-cards { border-left-color: #e3e8f6; }
+
+/* Secciones 1 a 5 diferenciadas entre sí: franja, borde y fondo propios, alternando azul y naranja */
+.ficha .bloque-ficha { background: var(--fondo, #f3f6fc); border-color: var(--franja); }
+.ficha .bloque-ficha:nth-of-type(1) { --franja: #102779; --fondo: #f3f6fc; }
+.ficha .bloque-ficha:nth-of-type(2) { --franja: #d9730d; --fondo: #fff4e8; }
+.ficha .bloque-ficha:nth-of-type(3) { --franja: #2a46b5; --fondo: #f3f6fc; }
+.ficha .bloque-ficha:nth-of-type(4) { --franja: #b85a08; --fondo: #fff0e0; }
+.ficha .bloque-ficha:nth-of-type(5) { --franja: #4a67c4; --fondo: #f3f6fc; }
+.ficha .bloque-ficha .bloque-cab { border-bottom: 3px solid rgba(255, 255, 255, 0.28); }
+
+/* Tipografía y fichas: Inter, clara y legible, con cifras alineadas */
+.ficha, .ficha h1, .ficha h2, .ficha h3, .ficha h4, .ficha p, .ficha li, .ficha figcaption, .ficha dt, .ficha dd, .ficha button, .ficha table { font-family: "Inter", "Segoe UI", Arial, sans-serif; }
+.ficha .bloque-cab h2 { font-weight: 700; letter-spacing: -0.01em; }
+.ficha .bloque-cab p { font-weight: 400; }
+.fl-cab span { font-weight: 600; letter-spacing: 0.08em; }
+.fl-hero small { font-weight: 500; letter-spacing: 0.04em; text-transform: none; font-size: 0.95rem; color: #4a5378; }
+.fl-hero span { font-weight: 700; font-size: 2.2rem; letter-spacing: -0.02em; }
+.fl-lista > div { padding: 10px 0; }
+.fl-lista dt { font-size: 0.95rem; font-weight: 400; color: #3b4468; }
+.fl-lista dd { font-size: 1.05rem; font-weight: 600; }
+.fl-lista dd small { font-size: 0.8rem; font-weight: 400; color: #6a7396; }
+.fl-ley { font-size: 0.8rem; font-weight: 400; }
+.lote3d-ayuda { font-family: "Inter", Arial, sans-serif; font-weight: 500; }
+.ficha .ficha-3d figcaption, .ficha .ilus-graf figcaption, .ficha .terreno-plano figcaption { font-weight: 400; }
+.ficha .ficha-3d figcaption b, .ficha .ilus-graf figcaption b, .ficha .terreno-plano figcaption b { font-weight: 600; }
+
+/* Todas las cards iguales: mismo fondo, borde, radio, sombra, relleno y separación */
+.ficha .ficha-3d, .ficha .ilus-graf figure, .ficha .terreno-dos, .ficha .bloque-ficha > .tipos-panel, .ficha .bloque-ficha > .tipos-total {
+  box-sizing: border-box; margin-top: 0; padding: 16px 18px; background: #fff; border: 1px solid #dfe3f1; border-radius: 14px; box-shadow: 0 2px 10px rgba(16, 39, 121, 0.06); }
+.ficha .terreno-dos { padding: 0; }
+.ficha .bloque-ficha > :not(.bloque-cab) + :not(.bloque-cab) { margin-top: 16px; }
+.ficha .ilus-graf { gap: 16px; margin-bottom: 0; }
+.ficha .bloque-ficha > .tipos-total { color: var(--azul); }
+.ficha .ilus-graf figcaption b, .ficha .ficha-3d figcaption b { font-size: 0.95rem; font-weight: 600; color: var(--azul); }
+
+/* Todas las secciones y cards del mismo color y del mismo ancho */
+.ficha .bloque-ficha, .ficha .bloque-ficha:nth-of-type(n) { --franja: var(--azul); --fondo: #f3f6fc; border-color: #dfe3f1; background: #f3f6fc; }
+.ficha .bloque-ficha .bloque-cab { background: var(--azul); }
+.ilus-cuatro.ilus-uno { grid-template-columns: 1fr 1fr; }
+.ficha .ilus-graf, .ficha .ilus-una { grid-template-columns: 1fr 1fr; max-width: none; justify-content: stretch; }
+
+/* Esquema del lote con margen: aire alrededor del dibujo y de su recuadro */
+.ficha .terreno-dos > figure.terreno-plano { padding: 26px 26px 18px; }
+.ficha .terreno-dos .lote3d { height: clamp(320px, 34vw, 400px); border: 1px solid #e3e7f4; }
+
+/* Avatares amarillos sobre las tipologías (1, 2 o 3 personas según el área) */
+.tipo-col { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.tipo-avatares { display: flex; gap: 2px; justify-content: center; }
+.tipo-avatares svg { width: 18px; height: 18px; fill: #f5c518; stroke: #102779; stroke-width: 1.3; stroke-linejoin: round; overflow: visible; }
+
+/* Marco oscuro y visible alrededor del esquema del lote */
+.ficha .terreno-dos .lote3d { border: 3px solid #102779; border-radius: 12px; box-shadow: 0 0 0 1px #102779, 0 4px 12px rgba(16, 39, 121, 0.3); }
+
+/* Sección 4: zona común en naranja quemado, tipologías en amarillo suave, letras y etiquetas en azul oscuro */
+.ilus-cuatro .mod-ax .mod-c.mod-c .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-tapa { fill: #d9661c; }
+.ilus-cuatro .mod-ax .mod-c.mod-c .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-izq { fill: #b24f10; }
+.ilus-cuatro .mod-ax .mod-c.mod-c .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-der { fill: #873a09; }
+.ilus-cuatro .mod-ax .mod-c polygon.ax-tapa { stroke: #d9661c; } .ilus-cuatro .mod-ax .mod-c polygon.ax-izq { stroke: #b24f10; } .ilus-cuatro .mod-ax .mod-c polygon.ax-der { stroke: #873a09; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-tapa { fill: #f8d44c; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-izq { fill: #e2b624; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u .ax-der { fill: #b58c0c; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u:hover .ax-tapa { fill: #fde382; }
+.ilus-cuatro .mod-ax .mod-u.mod-u.mod-u text, .vacio-planta[aria-label*="4 y 5"] .mod-u.mod-u.mod-u text { fill: #102779; }
+.ilus-cuatro .mod-ax .pl-nom { font-weight: 700; letter-spacing: 0.06em; }
+.ilus-cuatro .mod-ax .pl-area { font-weight: 800; }
+.ilus-cuatro .mod-ax .pl-val { font-weight: 600; }
+.ilus-cuatro .mod-ax .mod-rotulo { fill: #102779; font-size: 17px; font-weight: 800; letter-spacing: 0.08em; paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+.ilus-cuatro .ubic-svg .ubic-marco { stroke: #d9661c; fill: rgba(217, 102, 28, 0.12); }
+.ilus-cuatro .mod-ax .pl-nom { font-size: 13px; }
+.ilus-cuatro .mod-ax .pl-area { font-size: 22px; }
+.ilus-cuatro .mod-ax .pl-val { font-size: 12px; }
+.ilus-cuatro .mod-ax .mod-rotulo { font-size: 22px; stroke-width: 6px; }
+
+/* ===== Sección 4 (definitivo): zona común azul, tipologías amarillas, letras y etiquetas legibles ===== */
+.ilus-cuatro .mod-ax .mod-c .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-tapa { fill: #3e59d9 !important; stroke: #3e59d9 !important; }
+.ilus-cuatro .mod-ax .mod-c .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-izq { fill: #324bb4 !important; stroke: #324bb4 !important; }
+.ilus-cuatro .mod-ax .mod-c .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-c .ax-der { fill: #263a8e !important; stroke: #263a8e !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-tapa { fill: #f8d44c !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-izq { fill: #e2b624 !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-der { fill: #b58c0c !important; }
+.ilus-cuatro .mod-ax .mod-u:hover .ax-tapa { fill: #fde382 !important; }
+.ilus-cuatro .mod-ax .mod-u text, .vacio-planta[aria-label*="4 y 5"] .mod-u text { fill: #102779 !important; }
+.ilus-cuatro .mod-ax .mod-u .pl-nom { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; }
+.ilus-cuatro .mod-ax .mod-u .pl-area { font-size: 22px; font-weight: 800; }
+.ilus-cuatro .mod-ax .mod-u .pl-val { font-size: 12px; font-weight: 700; }
+.ilus-cuatro .mod-ax .mod-rotulo { fill: #fff !important; stroke: #102779 !important; stroke-width: 7px; paint-order: stroke; stroke-linejoin: round; font-size: 22px; font-weight: 800; letter-spacing: 0.08em; }
+.ilus-cuatro .ubic-svg .ubic-marco { stroke: #3e59d9; fill: rgba(58, 85, 200, 0.14); }
+.ilus-cuatro .mod-ax .mod-rotulo { stroke-width: 4.5px; font-size: 20px; letter-spacing: 0.06em; }
+
+/* Sección 4: amarillo y azul combinados. Etiquetas de torre como placas azul oscuro con letra blanca */
+.mod-rotulo-fondo { display: none; }
+.ilus-cuatro .mod-rotulo-fondo { display: block; fill: #102779; stroke: #fff; stroke-width: 2; pointer-events: none; }
+.ilus-cuatro .mod-ax .mod-rotulo { fill: #fff !important; stroke: none !important; font-size: 18px; font-weight: 800; letter-spacing: 0.08em; }
+.ilus-cuatro .mod-ax polygon { stroke: #fff; stroke-width: 2.2; }
+.ilus-cuatro .mod-ax .mod-c polygon { stroke-width: 1.5; }
+.ilus-cuatro .mod-ax .mod-u .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-tapa { fill: #ffd83a !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-izq { fill: #e6b800 !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-der { fill: #b38f00 !important; }
+.ilus-cuatro .mod-ax .mod-u text { fill: #102779 !important; }
+/* Sección 4: textos más grandes para que se lean */
+.ilus-cuatro .mod-ax .mod-u .pl-nom { font-size: 17px; letter-spacing: 0.02em; }
+.ilus-cuatro .mod-ax .mod-u .pl-area { font-size: 28px; }
+.ilus-cuatro .mod-ax .mod-u .pl-val { font-size: 15px; }
+.ilus-cuatro .mod-ax .mod-rotulo { font-size: 22px; }
+.ilus-cuatro .mod-ax .mod-u .pl-area.pl-s { font-size: 20px; }
+
+/* Sección 4: tipologías en el naranja de las otras secciones, líneas negras y textos en blanco */
+.ilus-cuatro .mod-ax .mod-u .ax-tapa, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-tapa { fill: #f39a27 !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-izq, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-izq { fill: #c27a1f !important; }
+.ilus-cuatro .mod-ax .mod-u .ax-der, .vacio-planta[aria-label*="4 y 5"] .mod-u .ax-der { fill: #8c5516 !important; }
+.ilus-cuatro .mod-ax .mod-u:hover .ax-tapa { fill: #f29a3c !important; }
+.ilus-cuatro .mod-ax polygon, .vacio-planta[aria-label*="4 y 5"] polygon { stroke: #000 !important; stroke-width: 1.6; }
+.ilus-cuatro .mod-ax .mod-c polygon.ax-tapa { stroke: #000 !important; stroke-width: 1.6; }
+.ilus-cuatro .mod-ax .mod-u text, .vacio-planta[aria-label*="4 y 5"] .mod-u text { fill: #fff !important; }
+.ilus-cuatro .mod-ax .mod-u .pl-nom { font-size: 22px; font-weight: 800; letter-spacing: 0.02em; }
+.ilus-cuatro .mod-ax .mod-u .pl-area { font-size: 30px; font-weight: 800; }
+.ilus-cuatro .mod-ax .mod-u .pl-val { font-size: 17px; font-weight: 700; }
+.ilus-cuatro .mod-ax .mod-u .pl-area.pl-s { font-size: 22px; }
+.ilus-cuatro .mod-ax .mod-u .pl-val { font-size: 15px; }
+
+/* Sección 4 unificada: tipologías naranja, zona común azul, líneas negras y etiquetas en placas azul oscuro */
+.ilus-uno figcaption .leyenda-4 { display: inline-flex; align-items: center; gap: 6px; margin: 4px 10px 0; font-size: 0.85rem; font-weight: 500; color: #102779; }
+.l4-tipo, .l4-comun { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid #000; }
+.l4-tipo { background: #f39a27; } .l4-comun { background: #3e59d9; }
+.ilus-uno figcaption { text-align: center; }
+/* Ubicación general con los mismos colores y líneas */
+.ubic-svg .iso-torre .mod-u .ax-tapa { fill: #f39a27; } .ubic-svg .iso-torre .mod-u .ax-izq { fill: #c27a1f; } .ubic-svg .iso-torre .mod-u .ax-der { fill: #8c5516; }
+.ubic-svg .iso-torre .mod-c .ax-tapa { fill: #3e59d9; } .ubic-svg .iso-torre .mod-c .ax-izq { fill: #324bb4; } .ubic-svg .iso-torre .mod-c .ax-der { fill: #263a8e; }
+.ubic-svg .iso-torre polygon { stroke: #000; stroke-width: 0.6; }
+.ubic-svg .ubic-marco { stroke: #102779; stroke-width: 3; fill: rgba(16, 39, 121, 0.10); }
+
+/* Zona común de un solo tono: mismo azul en todas las caras y sin líneas internas */
+.ilus-cuatro .mod-ax g.mod-c polygon.ax-tapa, .ilus-cuatro .mod-ax g.mod-c polygon.ax-izq, .ilus-cuatro .mod-ax g.mod-c polygon.ax-der,
+.vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-tapa, .vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-izq, .vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-der,
+.ubic-svg .iso-torre g.mod-c polygon.ax-tapa, .ubic-svg .iso-torre g.mod-c polygon.ax-izq, .ubic-svg .iso-torre g.mod-c polygon.ax-der { fill: #3e59d9 !important; stroke: #3e59d9 !important; stroke-width: 1.2; }
+.l4-comun { border-color: #3e59d9; }
+
+/* ===== Sección 4 como la imagen de referencia: oro y azul marino, etiquetas con línea guía ===== */
+.ilus-cuatro .mod-ax g.mod-u polygon.ax-tapa, .vacio-planta[aria-label*="4 y 5"] g.mod-u polygon.ax-tapa { fill: #f39a27 !important; }
+.ilus-cuatro .mod-ax g.mod-u polygon.ax-izq, .vacio-planta[aria-label*="4 y 5"] g.mod-u polygon.ax-izq { fill: #c27a1f !important; }
+.ilus-cuatro .mod-ax g.mod-u polygon.ax-der, .vacio-planta[aria-label*="4 y 5"] g.mod-u polygon.ax-der { fill: #8c5516 !important; }
+.ilus-cuatro .mod-ax g.mod-u:hover polygon.ax-tapa { fill: #f7b24f !important; }
+.ilus-cuatro .mod-ax g.mod-u polygon, .vacio-planta[aria-label*="4 y 5"] g.mod-u polygon { stroke: #1c1405 !important; stroke-width: 1; }
+.ilus-cuatro .mod-ax g.mod-c polygon.ax-tapa, .ilus-cuatro .mod-ax g.mod-c polygon.ax-izq, .ilus-cuatro .mod-ax g.mod-c polygon.ax-der,
+.vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-tapa, .vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-izq, .vacio-planta[aria-label*="4 y 5"] g.mod-c polygon.ax-der { fill: #3e59d9 !important; stroke: #3e59d9 !important; }
+.l4-tipo { background: #f39a27; } .l4-comun { background: #3e59d9; border-color: #3e59d9; }
+.co-guias line { stroke: #102779; stroke-width: 1.4; }
+.co-guias circle { fill: #102779; stroke: #fff; stroke-width: 1.5; }
+.co-fondo { fill: #fff; stroke: #dfe3f1; stroke-width: 1; }
+.co-placa { fill: #102779; }
+.planta-svg .co-tipo { fill: #fff; font: 700 17px "Inter", Arial, sans-serif; }
+.planta-svg .co-area { fill: #102779; font: 800 25px "Inter", Arial, sans-serif; }
+.planta-svg .co-valor { fill: #102779; font: 600 15px "Inter", Arial, sans-serif; }
+.ilus-cuatro .mod-ax .mod-rotulo-fondo { fill: #102779; stroke: none; }
+/* Títulos de las dos cards con rayas doradas, como en la referencia */
+.ilus-uno figcaption b { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1.5rem; font-weight: 800; color: #102779; }
+.ilus-uno figcaption b::before, .ilus-uno figcaption b::after { content: ""; width: 44px; height: 2px; background: #b8892c; }
+/* Ubicación general: torres claras, vías en gris y brújula azul */
+.ubic-svg .iso-torre.t-torre-c, .ubic-svg .iso-torre.t-torre-4, .ubic-svg .iso-torre.t-torre-5 { opacity: 1 !important; }
+.ubic-svg .iso-torre g.mod-u polygon.ax-tapa, .ubic-svg .iso-torre g.mod-c polygon.ax-tapa { fill: #f6f2e8 !important; stroke: #cfc8b6 !important; }
+.ubic-svg .iso-torre g.mod-u polygon.ax-izq, .ubic-svg .iso-torre g.mod-c polygon.ax-izq { fill: #e3dccb !important; stroke: #cfc8b6 !important; }
+.ubic-svg .iso-torre g.mod-u polygon.ax-der, .ubic-svg .iso-torre g.mod-c polygon.ax-der { fill: #c4bba5 !important; stroke: #cfc8b6 !important; }
+.ubic-svg .ubic-marco { display: none; }
+.ubic-svg .iso-calle { fill: #5a5a5c; stroke: #3c3c3e; }
+.ubic-svg .iso-norte polygon { fill: #102779; stroke: #102779; }
+.ubic-svg .iso-norte text { fill: #102779; }
+
+/* Paleta del proyecto: azul institucional #102779, azul interactivo #3E59D9, acento naranja #F39A27, fondo claro #F3F6FC */
+:root { --azul: #102779; --azul-interactivo: #3e59d9; --naranja: #f39a27; --fondo-claro: #f3f6fc; }
+
+/* Tarjetas encima de cada unidad (mismo tamaño) */
+.ilus-cuatro .planta-svg[data-superpuesto] .co-tipo { font-size: 14px; }
+.ilus-cuatro .planta-svg[data-superpuesto] .co-area { font-size: 21px; }
+.ilus-cuatro .planta-svg[data-superpuesto] .co-valor { font-size: 12px; }
+.ilus-cuatro .planta-svg[data-superpuesto] .co-fondo { stroke: #102779; stroke-width: 1.2; }
+
+/* Etiqueta pequeña con la sección 3 al hacer clic en una parte de T1, T2 o T3 */
+.lote-etiqueta { position: absolute; z-index: 5; width: 230px; padding: 10px 12px 12px; border: 2px solid #102779; border-radius: 10px; background: #fff; box-shadow: 0 6px 18px rgba(16, 39, 121, 0.3); cursor: default; }
+.lote-etiqueta[hidden] { display: none; }
+.lote-etiqueta b { display: block; margin: 0 22px 6px 0; font-size: 0.85rem; font-weight: 700; color: #102779; }
+.lote-etiqueta svg { display: block; width: 100%; height: auto; }
+.lote-etiqueta p { margin: 6px 0 0; font-size: 0.78rem; font-weight: 600; color: #102779; }
+.lote-etiqueta .le-cerrar { position: absolute; top: 4px; right: 6px; border: 0; background: none; font-size: 1.2rem; line-height: 1; color: #102779; cursor: pointer; }
+.lote-etiqueta .pl-nom { font-size: 11px; } .lote-etiqueta .pl-area { font-size: 15px; }
+.lote-etiqueta .mod-ax .mod-u .ax-tapa { fill: #f39a27; } .lote-etiqueta .mod-ax .mod-u .ax-izq { fill: #c27a1f; } .lote-etiqueta .mod-ax .mod-u .ax-der { fill: #8c5516; }
+.lote-etiqueta .mod-ax .mod-c .ax-tapa { fill: #3e59d9; } .lote-etiqueta .mod-ax .mod-c .ax-izq { fill: #324bb4; } .lote-etiqueta .mod-ax .mod-c .ax-der { fill: #263a8e; }
+
+/* Etiqueta de T4 y T5: planta de la sección 4 */
+.lote-etiqueta .planta-svg[data-planta="45"] .mod-u .ax-tapa { fill: #f39a27 !important; } .lote-etiqueta .planta-svg[data-planta="45"] .mod-u .ax-izq { fill: #c27a1f !important; } .lote-etiqueta .planta-svg[data-planta="45"] .mod-u .ax-der { fill: #8c5516 !important; }
+.lote-etiqueta .planta-svg[data-planta="45"] .mod-c polygon { fill: #3e59d9 !important; stroke: #3e59d9 !important; }
+.lote-etiqueta .planta-svg[data-planta="45"] polygon { stroke: #000; stroke-width: 1.4; }
+.lote-etiqueta .mod-rotulo-fondo, .lote-etiqueta .mod-rotulo { display: none; }
+
+/* Ubicación general: T4 y T5 marcadas en color (unidades naranja, zona común azul); T1 a T3 en tono claro */
+.ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-tapa, .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-tapa { fill: #f39a27 !important; stroke: #000 !important; }
+.ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-izq, .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-izq { fill: #c27a1f !important; stroke: #000 !important; }
+.ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-der, .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-der { fill: #8c5516 !important; stroke: #000 !important; }
+.ubic-svg .iso-torre.t-torre-4 g.mod-c polygon, .ubic-svg .iso-torre.t-torre-5 g.mod-c polygon { fill: #3e59d9 !important; stroke: #3e59d9 !important; }
+.ubic-svg .iso-torre.t-torre-4 polygon, .ubic-svg .iso-torre.t-torre-5 polygon { stroke-width: 0.6; }
+
+/* Sección 3: letras sobre los tipos en negro */
+.ilus-una .mod-ax .pl-nom, .ilus-una .mod-ax .pl-area, .ilus-una .mod-ax .pl-val, .ilus-una .mod-ax .mod-u text { fill: #000 !important; }
+/* Textura y relieve en los tonos de los gráficos */
+
+/* Volúmenes tipo acrílico: color con relieve de degradado y transparencia */
+.ficha svg.mod-ax g.mod-u polygon.ax-tapa { fill: url(#gr-nar-tapa) !important; fill-opacity: 0.86; }
+.ficha svg.mod-ax g.mod-u polygon.ax-izq { fill: url(#gr-nar-izq) !important; fill-opacity: 0.86; }
+.ficha svg.mod-ax g.mod-u polygon.ax-der { fill: url(#gr-nar-der) !important; fill-opacity: 0.86; }
+.ficha svg.mod-ax g.mod-c polygon.ax-tapa { fill: url(#gr-azu-tapa) !important; fill-opacity: 0.86; }
+.ficha svg.mod-ax g.mod-c polygon.ax-izq { fill: url(#gr-azu-izq) !important; fill-opacity: 0.86; }
+.ficha svg.mod-ax g.mod-c polygon.ax-der { fill: url(#gr-azu-der) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-c g.mod-u polygon.ax-tapa, .ficha .ubic-svg .iso-torre.t-torre-c g.mod-c polygon.ax-tapa { fill: url(#gr-cre-tapa) !important; fill-opacity: 0.88; }
+.ficha .ubic-svg .iso-torre.t-torre-c g.mod-u polygon.ax-izq, .ficha .ubic-svg .iso-torre.t-torre-c g.mod-c polygon.ax-izq { fill: url(#gr-cre-izq) !important; fill-opacity: 0.88; }
+.ficha .ubic-svg .iso-torre.t-torre-c g.mod-u polygon.ax-der, .ficha .ubic-svg .iso-torre.t-torre-c g.mod-c polygon.ax-der { fill: url(#gr-cre-der) !important; fill-opacity: 0.88; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-tapa, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-tapa { fill: url(#gr-nar-tapa) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-izq, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-izq { fill: url(#gr-nar-izq) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-u polygon.ax-der, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-u polygon.ax-der { fill: url(#gr-nar-der) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-c polygon.ax-tapa, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-c polygon.ax-tapa { fill: url(#gr-azu-tapa) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-c polygon.ax-izq, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-c polygon.ax-izq { fill: url(#gr-azu-izq) !important; fill-opacity: 0.86; }
+.ficha .ubic-svg .iso-torre.t-torre-4 g.mod-c polygon.ax-der, .ficha .ubic-svg .iso-torre.t-torre-5 g.mod-c polygon.ax-der { fill: url(#gr-azu-der) !important; fill-opacity: 0.86; }
+
+/* Títulos de sección en naranja con degradado; tarjetas con degradados suaves */
+.ficha .bloque-ficha .bloque-cab { background: linear-gradient(100deg, #ffb64d 0%, #f39a27 55%, #dc8216 100%); color: #102779; border-bottom: 3px solid #c4700f; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45); }
+.ficha .bloque-cab h2 { color: #102779; }
+.ficha .bloque-cab p { color: rgba(16, 39, 121, 0.85); }
+.ficha .bloque-cab svg { background: rgba(16, 39, 121, 0.14); color: #102779; }
+.ficha .bloque-ficha, .ficha .bloque-ficha:nth-of-type(n) { background: linear-gradient(180deg, #f3f6fc 0%, #e6ecfb 100%); }
+.ficha .ficha-3d, .ficha .ilus-graf figure, .ficha .terreno-dos, .ficha .bloque-ficha > .tipos-panel, .ficha .bloque-ficha > .tipos-total {
+  background: linear-gradient(155deg, #ffffff 0%, #f5f8ff 55%, #e1e9fb 100%); }
+.fl-cab { background: linear-gradient(100deg, #102779 0%, #3e59d9 100%); }
+.ficha .terreno-dos > .terreno-cards { background: linear-gradient(180deg, #ffffff 0%, #eef3fd 100%); }
+.ficha .terreno-dos .lote3d { background: linear-gradient(160deg, #ffffff 0%, #e9effc 100%); }
+.lote-etiqueta { background: linear-gradient(160deg, #ffffff 0%, #e9effc 100%); }
+
+/* Sección 3: tres gráficos en horizontal. En la ubicación general se marcan T1, T2 y T3 */
+.ficha .ilus-una { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .ficha .ilus-una { grid-template-columns: 1fr; } }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-u polygon.ax-tapa { fill: url(#gr-nar-tapa) !important; fill-opacity: 0.86; stroke: #000 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-u polygon.ax-izq { fill: url(#gr-nar-izq) !important; fill-opacity: 0.86; stroke: #000 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-u polygon.ax-der { fill: url(#gr-nar-der) !important; fill-opacity: 0.86; stroke: #000 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-c polygon.ax-tapa { fill: url(#gr-azu-tapa) !important; fill-opacity: 0.86; stroke: #3e59d9 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-c polygon.ax-izq { fill: url(#gr-azu-izq) !important; fill-opacity: 0.86; stroke: #3e59d9 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-c g.mod-c polygon.ax-der { fill: url(#gr-azu-der) !important; fill-opacity: 0.86; stroke: #3e59d9 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-u polygon.ax-tapa, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-u polygon.ax-tapa, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-c polygon.ax-tapa, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-c polygon.ax-tapa { fill: url(#gr-cre-tapa) !important; stroke: #cfc8b6 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-u polygon.ax-izq, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-u polygon.ax-izq, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-c polygon.ax-izq, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-c polygon.ax-izq { fill: url(#gr-cre-izq) !important; stroke: #cfc8b6 !important; }
+.ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-u polygon.ax-der, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-u polygon.ax-der, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-4 g.mod-c polygon.ax-der, .ficha .ubic-svg.ubic-123 .iso-torre.t-torre-5 g.mod-c polygon.ax-der { fill: url(#gr-cre-der) !important; stroke: #cfc8b6 !important; }
+.ilus-una figcaption { text-align: center; }
+.ilus-una .ubic-general { align-content: center; }
+
+/* Letra blanca en las franjas naranjas de los títulos */
+.ficha .bloque-ficha .bloque-cab, .ficha .bloque-cab h2 { color: #fff; }
+.ficha .bloque-cab h2 { text-shadow: 0 1px 2px rgba(120, 60, 0, 0.45); }
+.ficha .bloque-cab p { color: rgba(255, 255, 255, 0.95); text-shadow: 0 1px 2px rgba(120, 60, 0, 0.4); }
+.ficha .bloque-cab svg { background: rgba(255, 255, 255, 0.22); color: #fff; }
+
+/* Franjas de título como el banner de referencia: naranja vivo con degradado y letra blanca, en negrita */
+.ficha .bloque-ficha .bloque-cab { background: linear-gradient(100deg, #ffb340 0%, #f9a11e 50%, #f58f0e 100%); border-bottom: 3px solid #d97a0a; }
+.ficha .bloque-cab h2 { font-size: 1.45rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; text-shadow: none; }
+.ficha .bloque-cab p { font-size: 0.9rem; font-weight: 600; text-shadow: none; }
+
+/* Fuente de la imagen del banner (Montserrat, en negrita) en las franjas naranjas de los títulos */
+.ficha .bloque-cab h2 { font-family: "Montserrat", sans-serif; font-weight: 800; text-shadow: 0 2px 3px rgba(120, 50, 0, 0.35); }
+.ficha .bloque-cab p { font-family: "Montserrat", sans-serif; font-weight: 700; text-shadow: 0 1px 2px rgba(120, 50, 0, 0.3); }
+
+/* Franjas de título en un naranja más oscuro */
+.ficha .bloque-ficha .bloque-cab { background: linear-gradient(100deg, #ee8f1c 0%, #de7609 50%, #c4620a 100%); border-bottom: 3px solid #9c4e05; }
+
+/* Letras sobre el naranja: borde negro y relieve */
+.ficha .bloque-cab h2 { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000, 2px 2px 0 #000, 3px 3px 0 #000, 4px 5px 6px rgba(0, 0, 0, 0.45); }
+.ficha .bloque-cab p { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000, 1px 2px 0 #000, 2px 3px 4px rgba(0, 0, 0, 0.4); }
+
+/* Letras sobre el naranja: sombra leve que se degrada (sin contorno) */
+.ficha .bloque-cab h2 { text-shadow: 0 1px 0 rgba(90, 40, 0, 0.5), 0 2px 3px rgba(90, 40, 0, 0.38), 0 4px 7px rgba(90, 40, 0, 0.26), 0 8px 14px rgba(90, 40, 0, 0.14); }
+.ficha .bloque-cab p { text-shadow: 0 1px 0 rgba(90, 40, 0, 0.4), 0 2px 4px rgba(90, 40, 0, 0.28), 0 4px 8px rgba(90, 40, 0, 0.14); }
+
+/* Card de la torre: implantación y selector de tipología */
+.lote-etiqueta { width: 260px; }
+.lote-etiqueta .le-mapa svg { display: block; width: 100%; height: auto; }
+.lote-etiqueta .le-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.lote-etiqueta .le-chip { padding: 3px 9px; border: 1px solid #102779; border-radius: 999px; background: #fff; color: #102779; font: 600 0.7rem "Inter", Arial, sans-serif; cursor: pointer; }
+.lote-etiqueta .le-chip.activo { background: #102779; color: #fff; }
+.lote-etiqueta .le-chip:hover { background: #dfe6fb; } .lote-etiqueta .le-chip.activo:hover { background: #102779; }
+/* Lote en verde oscuro (esquemas SVG y ubicaciones generales) */
+.t-lote-pol, .tc-lote { fill: #1d4a1f; }
+
+/* ===== Versión celular (vertical): sin desbordes, todo en una columna ===== */
+@media (max-width: 600px) {
+  html, body { overflow-x: hidden; }
+  .contenedor { width: 100%; padding-inline: 10px; }
+  .barra { padding: 8px 12px; }
+  .banner-animado { width: 100%; }
+  .ficha .bloque-ficha { margin-top: 18px; border-radius: 14px; }
+  .ficha .bloque-ficha > :not(.bloque-cab) { margin-left: 10px; margin-right: 10px; }
+  .ficha .bloque-cab { padding: 10px 14px; gap: 10px; }
+  .ficha .bloque-cab svg { width: 34px; height: 34px; padding: 7px; }
+  .ficha .bloque-cab h2 { font-size: 1.05rem; }
+  .ficha .bloque-cab p { font-size: 0.74rem; }
+  .ficha .terreno-dos, .ficha .ilus-graf, .ficha .ilus-una, .ficha .ilus-cuatro, .ficha .ilus-cuatro.ilus-uno { grid-template-columns: 1fr !important; }
+  .ficha .terreno-dos > figure.terreno-plano { padding: 12px; min-width: 0; }
+  .ficha .terreno-dos .lote3d { height: 300px; }
+  .ficha .ilus-graf figure, .ficha .ficha-3d { min-width: 0; padding: 12px; }
+  .torres-y-tipos { grid-template-columns: 1fr !important; }
+  .ficha .g-3d, .ficha .planta-svg, .ficha .t-svg { max-width: 100%; height: auto; }
+  .tipos-vacio { min-height: 220px; }
+  .tipos-cuadros { gap: 6px; }
+  .tipo-col { flex: 0 0 auto; }
+  .ficha .bloque-ficha > .tipos-panel { padding: 12px; }
+  .parq-svg { max-width: 100%; }
+  .lote-etiqueta { width: 220px; }
+  .fl-hero span { font-size: 1.7rem; }
+  .fl-lista dd { font-size: 0.95rem; }
+  .pie-grid { flex-direction: column; gap: 8px; text-align: center; }
+}
+
+/* Página Móvil: visor con marco de celular y pestañas por sección */
+.movil-visor { flex: 1; display: grid; justify-items: center; gap: 14px; padding: 24px 12px 40px; background: linear-gradient(180deg, #f3f6fc 0%, #e1e9fb 100%); }
+.mv-ayuda { margin: 0; font: 500 0.95rem "Inter", Arial, sans-serif; color: #102779; text-align: center; }
+.mv-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 760px; }
+.mv-tabs button { padding: 8px 16px; border: 2px solid #102779; border-radius: 999px; background: #fff; color: #102779; font: 700 0.85rem "Montserrat", sans-serif; cursor: pointer; }
+.mv-tabs button[aria-selected="true"] { background: #f39a27; border-color: #f39a27; color: #fff; }
+.mv-celular { position: relative; width: 414px; max-width: 100%; padding: 14px 12px; border-radius: 44px; background: #0c0f1c; box-shadow: 0 18px 40px rgba(16, 39, 121, 0.35), inset 0 0 0 2px #2a2f45; }
+.mv-muesca { position: absolute; top: 14px; left: 50%; z-index: 2; width: 110px; height: 22px; margin-left: -55px; border-radius: 0 0 16px 16px; background: #0c0f1c; }
+.mv-celular iframe { display: block; width: 100%; height: min(780px, calc(100vh - 220px)); min-height: 560px; border: 0; border-radius: 30px; background: #fff; }
+/* Dentro del marco: sin navbar propio y con la franja del logo compacta */
+html.en-movil body .barra { display: none; }
+html.en-movil body .pie { display: none; }
+html.en-movil body .banner { position: static; }
+html.en-movil body .banner-animado { width: 100%; aspect-ratio: 1734 / 380; }
+html.en-movil .barra, html.en-movil .pie { display: none !important; }
+.pagina-movil .movil-cabecera { width: 100%; max-width: none; }
+.pagina-movil .movil-pestanas { justify-content: center; }
+
+/* Diseñador en celular: herramientas arriba en fila, lienzo en el medio y panel abajo */
+@media (max-width: 600px) {
+  .pagina-editor { height: auto; overflow: visible; }
+  .pagina-editor .editor { display: flex; flex-direction: column; height: auto; min-height: 0; }
+  .pagina-editor .herramientas { display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; width: 100%; border-right: 0; border-bottom: 1px solid var(--borde); }
+  .pagina-editor .herramientas > * { flex: 0 0 auto; }
+  .pagina-editor .herramientas-titulo { display: none; }
+  .pagina-editor .editor > :nth-child(2) { min-height: 360px; overflow: auto; }
+  .pagina-editor .editor > :last-child { width: 100%; border-left: 0; border-top: 1px solid var(--borde); }
+}

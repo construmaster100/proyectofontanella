@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fontanella - Logo animado</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #0d2472;
+    }
+
+    .animated-logo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(32vw, 1734px);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <img
+    id="animated-logo"
+    class="animated-logo"
+    src="secuencia_10_fullsize/frame_01_1734x867.png"
+    alt="Logo animado Fontanella"
+  >
+
+  <script>
+    const frames = Array.from({ length: 10 }, (_, index) =>
+      `secuencia_10_fullsize/frame_${String(index + 1).padStart(2, "0")}_1734x867.png`
+    );
+    const logo = document.getElementById("animated-logo");
+    let frameIndex = 0;
+
+    frames.forEach((source) => {
+      const image = new Image();
+      image.src = source;
+    });
+
+    window.setInterval(() => {
+      frameIndex = (frameIndex + 1) % frames.length;
+      logo.src = frames[frameIndex];
+    }, 180);
+  </script>
+</body>
+</html>

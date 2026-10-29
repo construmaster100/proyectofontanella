@@ -1,0 +1,108 @@
+FONTANELLA - RELACIONES MATEMATICAS DEL PROYECTO
+=================================================
+Formulas usadas en la portada (index.html, "Datos del proyecto").
+Los valores estan en docs/datos-proyecto.md.
+[S] = dato suministrado   [C] = dato calculado
+
+DATOS BASE
+----------
+Lote                                   = 15.702 m2                    [S]
+Torres 1, 2, 3: pisos tipo             = 12                           [S]
+Torres 1, 2, 3: apto. por piso         = 4                            [S]
+Torres 1, 2, 3: area apartamento       = 107 m2                       [S]
+Torres 1, 2, 3: area construida piso   = 544 m2 c/u                   [S]
+Precio de referencia                   = 440.000.000 por 107 m2       [S]
+Torres 4 y 5: pisos                    = 12                           [S]
+Torres 4 y 5: area construida piso     = 716,66 m2 (las dos)          [S]
+Torre 5: area construida piso          = 254 m2                       [S]
+Torre 4: unidades por piso             = 6                            [S]
+Torre 4: areas unidades (m2)           = 67,27 / 65,71 / 42,92 / 67,52 / 28,37 / 84,78   [S]
+Torre 5: unidades por piso             = 2 de 97 m2                   [S]
+Sotanos torres 1-3 (parqueaderos)      = 72 / 53 / 45 visitantes      [S]
+Sotanos torres 4-5 (parqueaderos)      = 42 / 142 / 104               [S]
+Area sotanos                           = 20.000 + 26.000 m2           [S]
+
+1. TERRENO
+----------
+Huella torres          = 544 x 3 + 462,66 + 254              = 2.348,66 m2      [C]
+Indice de ocupacion    = Huella torres / Lote
+                       = 2.348,66 / 15.702                   = 0,1496 -> 0,15 (15,0 %)
+Area torres            = 544 x 12 x 3 + 716,66 x 12          = 28.183,92 m2     [C]
+Indice de construccion = Area torres / Lote
+                       = 28.183,92 / 15.702                  = 1,795 -> 1,79
+IC con sotanos         = (Area torres + Area sotanos) / Lote
+                       = 74.183,92 / 15.702                  = 4,72
+
+Escala de las figuras del bloque 1:
+  lado relativo de la huella = raiz(2.348,66 / 15.702) = 0,3868 del lado del lote
+
+2. TORRES
+---------
+Torre 4: area construida piso = 716,66 - 254                 = 462,66 m2        [C]
+Total apto. por torre         = apto. por piso x 12
+  Torre 1, 2, 3 = 4 x 12 = 48
+  Torre 4       = 6 x 12 = 72
+  Torre 5       = 2 x 12 = 24
+  Total         = 48 x 3 + 72 + 24 = 240
+Area construida total torre   = area construida piso x 12
+  Torre 1, 2, 3 = 544 x 12    = 6.528,00 m2
+  Torre 4       = 462,66 x 12 = 5.551,92 m2
+  Torre 5       = 254 x 12    = 3.048,00 m2
+  Total                       = 28.183,92 m2
+Area apartamentos por piso
+  Torre 1, 2, 3 = 4 x 107                                         = 428,00 m2
+  Torre 4       = 67,27 + 65,71 + 42,92 + 67,52 + 28,37 + 84,78   = 356,57 m2
+  Torre 5       = 2 x 97                                          = 194,00 m2
+Area comun por piso = area construida piso - area apartamentos piso
+  Torre 1, 2, 3 = 544 - 428       = 116,00 m2
+  Torre 4       = 462,66 - 356,57 = 106,09 m2
+  Torre 5       = 254 - 194       =  60,00 m2
+
+3. TIPOLOGIAS Y VALOR
+---------------------
+Valor m2           = 440.000.000 / 107 = 4.112.149,53 $/m2
+Valor unidad       = area unidad x valor m2
+Valor tipologia    = valor unidad x 12 pisos
+  Torre 4 Tip. 1 = 67,27 x 4.112.149,53 = 276.624.299   x 12 = 3.319.491.589
+  Torre 4 Tip. 2 = 65,71 x 4.112.149,53 = 270.209.346   x 12 = 3.242.512.150
+  Torre 4 Tip. 3 = 42,92 x 4.112.149,53 = 176.493.458   x 12 = 2.117.921.495
+  Torre 4 Tip. 4 = 67,52 x 4.112.149,53 = 277.652.336   x 12 = 3.331.828.037
+  Torre 4 Tip. 5 = 28,37 x 4.112.149,53 = 116.661.682   x 12 = 1.399.940.187
+  Torre 4 Tip. 6 = 84,78 x 4.112.149,53 = 348.628.037   x 12 = 4.183.536.449
+  Torre 5 Tip. 1 = 97,00 x 4.112.149,53 = 398.878.505   x 12 = 4.786.542.056
+  Torre 5 Tip. 2 = 97,00 x 4.112.149,53 = 398.878.505   x 12 = 4.786.542.056
+Valor por piso Torre 4 = 356,57 x 4.112.149,53 = 1.466.269.159
+Valor Torre 4          = 1.466.269.159 x 12    = 17.595.229.907
+Valor por piso Torre 5 = 194 x 4.112.149,53    = 797.757.009
+Valor Torre 5          = 797.757.009 x 12      = 9.573.084.112
+Valor nuevas unidades  = 17.595.229.907 + 9.573.084.112 = 27.168.314.019
+Unidades nuevas        = 72 + 24 = 96
+Area apartamentos nuevas = 356,57 x 12 + 194 x 12 = 4.278,84 + 2.328,00 = 6.606,84 m2
+
+Referencia torres 1 a 3:
+Valor torre            = 48 x 440.000.000 = 21.120.000.000
+Valor torres 1 a 3     = 21.120.000.000 x 3 = 63.360.000.000
+Valor proyecto         = 63.360.000.000 + 27.168.314.019 = 90.528.314.019
+
+Escala de las plantas tipo (bloque 3):
+  area de cada modulo en pantalla proporcional a su area en m2
+  (misma escala para Torre 4 y Torre 5)
+
+4. PARQUEADEROS
+---------------
+Acumulado torres 1-3 = 72 -> 72 + 53 = 125 -> 125 + 45 = 170
+Acumulado torres 4-5 = 42 -> 42 + 142 = 184 -> 184 + 104 = 288
+Total parqueaderos   = 170 + 288 = 458
+Iconos bloque 4      = 1 icono por cada 10 parqueaderos
+
+5. AREAS TOTALES
+----------------
+Sotanos              = 20.000 + 26.000           = 46.000,00 m2
+Torres 1 a 3         = 544 x 12 x 3              = 19.584,00 m2
+Torres 4 y 5         = 716,66 x 12               =  8.599,92 m2
+Area total construida = 46.000 + 19.584 + 8.599,92 = 74.183,92 m2
+
+PENDIENTES / SIN CONCILIAR
+--------------------------
+- "Piso tipo 1.770 m2" (suministrado): no coincide con 3 x 544 = 1.632 m2.
+- Unidades disponibles por torre: no suministrado.

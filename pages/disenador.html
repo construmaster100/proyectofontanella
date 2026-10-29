@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Diseñador | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+<script>if(location.search.indexOf("movil")>-1)document.documentElement.classList.add("en-movil")</script>
+</head>
+<body class="pagina-editor">
+
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html" class="activo" aria-current="page">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="solo-lectores">Diseñador</h1>
+    <div class="editor">
+      <nav class="herramientas" aria-label="Herramientas">
+        <p class="herramientas-titulo">Herramientas</p>
+        <button type="button" class="herramienta" data-herramienta="puntero" aria-pressed="false" title="Seleccionar y mover objetos; arrastra los vértices de líneas y polígonos; doble clic en una etiqueta para cambiar su texto; Supr elimina"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6.5 1.8L9.5 19z"/></svg><span>Puntero</span></button>
+        <button type="button" class="herramienta activo" data-herramienta="lapiz" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 7l3 3"/></svg><span>Lápiz</span></button>
+        <button type="button" class="herramienta" data-herramienta="texto" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6V4h14v2"/><path d="M12 4v16"/><path d="M9 20h6"/></svg><span>Texto</span></button>
+        <div class="herramienta-grupo">
+          <button type="button" class="herramienta" id="boton-formas" data-herramienta="bandera" aria-pressed="false" aria-haspopup="menu" aria-expanded="false" title="Formas: Bandera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V3"/><path d="M6 4h11l-3 4 3 4H6"/></svg><span>Formas</span></button>
+          <div class="menu-formas" id="menu-formas" role="menu" aria-label="Formas" hidden>
+            <button type="button" role="menuitemradio" aria-checked="true" data-forma="bandera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V3"/><path d="M6 4h11l-3 4 3 4H6"/></svg><span>Bandera</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-forma="equis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg><span>Equis</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-forma="punto"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Punto</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-forma="chulo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span>Chulo</span></button>
+          </div>
+        </div>
+        <button type="button" class="herramienta" data-herramienta="medida" aria-pressed="false" title="Clic en el punto 1 y clic en el punto 2 (Esc cancela)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19L19 5"/><path d="M3 17l4 4M17 3l4 4"/></svg><span>Línea (m)</span></button>
+        <button type="button" class="herramienta" data-herramienta="poligono" aria-pressed="false" title="Clic en cada vértice; doble clic, Enter o clic en el primer vértice para cerrar (Esc cancela)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 6-3 11H7L4 9z"/></svg><span>Polígono</span></button>
+        <button type="button" class="herramienta activo" id="iman-activo" aria-pressed="true" title="Unir líneas y polígonos en extremos, puntos medios e intersecciones"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v9a6 6 0 0 0 12 0V3"/><path d="M6 7h4M14 7h4"/></svg><span>Imán</span></button>
+        <span class="herramientas-separador"></span>
+        <button type="button" class="herramienta" id="deshacer" title="Deshacer (Ctrl+Z)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Deshacer</span></button>
+        <button type="button" class="herramienta" id="limpiar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg><span>Limpiar</span></button>
+      </nav>
+      <div class="area" id="area">
+        <svg id="dibujo" aria-label="Área de trabajo">
+          <image id="imagen-fondo" preserveAspectRatio="none"></image>
+          <g id="grilla"></g>
+          <g id="series"></g>
+          <g id="trazos"></g>
+          <g id="seleccion"></g>
+          <g id="iman"></g>
+        </svg>
+        <span class="area-posicion" id="area-posicion"></span>
+        <div class="cuadro-coordenadas" id="cuadro-coordenadas" hidden></div>
+      </div>
+      <aside class="escala-panel" aria-label="Proyecto, escala e imagen">
+        <div class="panel-acciones">
+          <button type="button" class="boton boton-naranja boton-nuevo" id="nuevo-proyecto">+ Nuevo proyecto</button>
+          <button type="button" class="boton-icono" id="deshacer-panel" title="Deshacer (Ctrl+Z)" aria-label="Deshacer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
+        </div>
+        <section class="panel-recuadro panel-escala">
+          <button type="button" class="boton boton-borde" id="abrir-escala">Escala</button>
+          <p class="panel-escala-resumen" id="escala-resumen"></p>
+        </section>
+        <section class="panel-recuadro panel-imagen" aria-label="Imagen">
+          <button type="button" class="boton boton-borde" id="abrir-imagenes">Seleccionar imagen</button>
+          <button type="button" class="boton boton-naranja" id="guardar-imagen">Guardar imagen</button>
+          <p class="panel-imagen-info" id="imagen-info"></p>
+        </section>
+        <section class="panel-recuadro panel-banderas" aria-label="Rótulo de las banderas">
+          <label for="serie-bandera">Banderas</label>
+          <select id="serie-bandera">
+            <option value="P">Lote · P1 a P4</option>
+            <option value="CT1">Torre 1 · CT11 a CT14</option>
+            <option value="CT2">Torre 2 · CT21 a CT24</option>
+            <option value="CT3">Torre 3 · CT31 a CT34</option>
+            <option value="CT4">Torre 4 · CT41 a CT44</option>
+            <option value="CT5">Torre 5 · CT51 a CT54</option>
+          </select>
+          <p class="panel-imagen-info">Herramienta Formas › bandera: cada clic pone el siguiente punto de la serie.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie-grid">
+      <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
+      <a href="?admin" id="enlace-admin">Administrador</a>
+    </div>
+  </footer>
+
+  <dialog class="dialogo" id="dialogo-escala" aria-labelledby="escala-titulo">
+    <h2 id="escala-titulo">Escala</h2>
+    <p class="escala-ayuda">Cada casilla de la grilla es un módulo de píxeles; indica cuántos metros equivale.</p>
+    <div class="escala-casillas">
+      <label>Módulo<span class="escala-campo"><input id="modulo" type="number" min="4" max="200" step="1" value="10"><span>px</span></span></label>
+      <label>Equivale a<span class="escala-campo"><input id="metros-modulo" type="number" min="0.01" step="any" value="1"><span>m</span></span></label>
+    </div>
+    <dl class="escala-datos">
+      <dt>Relación</dt><dd id="escala-relacion"></dd>
+      <dt>Rótulos de la grilla</dt><dd id="escala-rotulos"></dd>
+      <dt>Área visible</dt><dd id="escala-area"></dd>
+    </dl>
+    <div class="dialogo-acciones">
+      <button type="button" class="boton boton-naranja" id="escala-aceptar">Aceptar</button>
+      <button type="button" class="boton boton-borde" id="escala-cancelar">Cancelar</button>
+      <button type="button" class="boton boton-borde" id="escala-aplicar">Aplicar</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialogo dialogo-imagenes" id="dialogo-imagenes" aria-labelledby="imagenes-titulo">
+    <h2 id="imagenes-titulo">Seleccionar imagen</h2>
+    <p class="escala-ayuda">Elige una imagen de la galería para editarla, o ábrela desde tu computador.</p>
+    <div class="selector-imagenes" id="selector-imagenes"></div>
+    <div class="dialogo-acciones">
+      <label class="boton boton-borde">Desde mi computador<input type="file" id="seleccionar-imagen" accept="image/*" hidden></label>
+      <button type="button" class="boton boton-borde" id="imagenes-cancelar">Cancelar</button>
+    </div>
+  </dialog>
+
+  <dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+    <div class="visor-cabecera">
+      <div>
+        <span class="visor-id" id="visor-id"></span>
+        <span class="visor-resolucion" id="visor-resolucion"></span>
+        <h3 id="visor-titulo"></h3>
+      </div>
+      <span class="visor-contador" id="visor-contador"></span>
+      <button class="visor-cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+    </div>
+    <div class="visor-cuerpo">
+      <div class="visor-escena">
+        <button class="visor-nav visor-anterior" id="visor-anterior" aria-label="Imagen anterior">‹</button>
+        <div class="lienzo" id="visor-lienzo">
+          <img id="visor-img" alt="">
+          <div class="capa-puntos" id="visor-puntos"></div>
+        </div>
+        <button class="visor-nav visor-siguiente" id="visor-siguiente" aria-label="Imagen siguiente">›</button>
+      </div>
+      <aside class="visor-lado">
+        <h4>Puntos señalados</h4>
+        <ol class="visor-lista" id="visor-lista"></ol>
+      </aside>
+    </div>
+  </dialog>
+
+  <script src="../js/puntos.js?v=4"></script>
+  <script src="../js/datos.js?v=4"></script>
+  <script src="../js/administrador.js?v=4"></script>
+  <script src="../js/galeria.js?v=4"></script>
+  <script src="../js/disenador.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>El proyecto | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+<script>if(location.search.indexOf("movil")>-1)document.documentElement.classList.add("en-movil")</script>
+</head>
+<body>
+
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" class="activo" aria-current="page" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="proyecto" class="seccion seccion-suave">
+      <div class="contenedor">
+        <h1 class="solo-lectores">El proyecto</h1>
+        <ul class="datos">
+          <li><span class="dato-valor">3</span><span class="dato-texto">Habitaciones</span></li>
+          <li><span class="dato-valor">107 m²</span><span class="dato-texto">Construidos</span></li>
+          <li><span class="dato-valor">Tunja</span><span class="dato-texto">Boyacá, Colombia</span></li>
+          <li><span class="dato-valor">$440 M</span><span class="dato-texto">Precio desde</span></li>
+        </ul>
+
+        <!-- Etapas según docs/portafolio victor/ALCANCE PRESENTACION 2 ETAPA.pdf; la segunda etapa es la proyectada (indicación del cliente) -->
+        <h2 class="subtitulo-seccion">Etapas</h2>
+        <ol class="etapas">
+          <li class="etapa">
+            <span class="etapa-numero">1</span>
+            <h3>Primera etapa</h3>
+          </li>
+          <li class="etapa etapa-proyectada">
+            <span class="etapa-numero">2</span>
+            <h3>Segunda etapa</h3>
+            <p>Torres 4 y 5</p>
+            <span class="etapa-estado">Proyectada</span>
+          </li>
+          <li class="etapa">
+            <span class="etapa-numero">3</span>
+            <h3>Tercera etapa</h3>
+            <p>Torre 6</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie-grid">
+      <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
+      <a href="?admin" id="enlace-admin">Administrador</a>
+    </div>
+  </footer>
+
+  <dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+    <div class="visor-cabecera">
+      <div>
+        <span class="visor-id" id="visor-id"></span>
+        <span class="visor-resolucion" id="visor-resolucion"></span>
+        <h3 id="visor-titulo"></h3>
+      </div>
+      <span class="visor-contador" id="visor-contador"></span>
+      <button class="visor-cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+    </div>
+    <div class="visor-cuerpo">
+      <div class="visor-escena">
+        <button class="visor-nav visor-anterior" id="visor-anterior" aria-label="Imagen anterior">‹</button>
+        <div class="lienzo" id="visor-lienzo">
+          <img id="visor-img" alt="">
+          <div class="capa-puntos" id="visor-puntos"></div>
+        </div>
+        <button class="visor-nav visor-siguiente" id="visor-siguiente" aria-label="Imagen siguiente">›</button>
+      </div>
+      <aside class="visor-lado">
+        <h4>Puntos señalados</h4>
+        <ol class="visor-lista" id="visor-lista"></ol>
+      </aside>
+    </div>
+  </dialog>
+
+  <script src="../js/puntos.js?v=4"></script>
+  <script src="../js/datos.js?v=4"></script>
+  <script src="../js/administrador.js?v=4"></script>
+  <script src="../js/galeria.js?v=4"></script>
+</body>
+</html>

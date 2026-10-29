@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Secuencia por pisos | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+<script>if(location.search.indexOf("movil")>-1)document.documentElement.classList.add("en-movil")</script>
+<style>
+  .secuencia{max-width:1400px;margin:0 auto}
+  .secuencia-marco{position:relative;background:#fff;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.2);overflow:hidden}
+  .secuencia-marco img{width:100%;height:auto;display:block}
+  .secuencia-etiqueta{position:absolute;left:1rem;bottom:1rem;background:rgba(0,0,0,.65);color:#fff;padding:.3rem .8rem;border-radius:4px;font-weight:700}
+  .secuencia-controles{display:flex;gap:1rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+  .secuencia-controles input{flex:1;min-width:120px}
+</style>
+</head>
+<body>
+
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html" class="activo" aria-current="page">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="seccion seccion-suave">
+      <div class="contenedor">
+        <h1>Secuencia por pisos</h1>
+        <div class="secuencia">
+          <div class="secuencia-marco">
+            <img id="sec-img" src="../img/secuencia%20por%20pisos/nivel-01/nivel.jpg" alt="Nivel 1">
+            <span class="secuencia-etiqueta" id="sec-etiqueta">Nivel 1</span>
+          </div>
+          <div class="secuencia-controles">
+            <button class="boton boton-naranja" id="sec-pausa" type="button">Pausar</button>
+            <label for="sec-vel">Velocidad</label>
+            <input type="range" id="sec-vel" min="80" max="1000" step="20" value="250" style="direction:rtl">
+          </div>
+        </div>
+
+  <footer class="pie">
+    <div class="contenedor pie-grid">
+      <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
+    </div>
+  </footer>
+  <script>document.getElementById("anio").textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var niveles=[1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17], base="../img/secuencia%20por%20pisos/nivel-";
+  var url=function(n){return base+(n<10?"0":"")+n+"/nivel.jpg"};
+  var img=document.getElementById("sec-img"),et=document.getElementById("sec-etiqueta"),
+      btn=document.getElementById("sec-pausa"),vel=document.getElementById("sec-vel");
+  var cache=niveles.map(function(n){var i=new Image();i.src=url(n);return i});
+  var i=0,ms=+vel.value,t=null;
+  function paso(){i=(i+1)%niveles.length;img.src=cache[i].src;img.alt=et.textContent="Nivel "+niveles[i]}
+  function play(){clearInterval(t);t=setInterval(paso,ms);btn.textContent="Pausar"}
+  function stop(){clearInterval(t);t=null;btn.textContent="Reproducir"}
+  btn.onclick=function(){t?stop():play()};
+  vel.oninput=function(){ms=+vel.value;if(t)play()};
+  play();
+})();
+</script>
+</body>
+</html>

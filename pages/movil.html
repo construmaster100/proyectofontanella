@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Móvil | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+</head>
+<body class="pagina-movil">
+
+  <header class="movil-cabecera">
+    <a href="movil.html" class="movil-logo">FONTANELLA</a>
+    <nav class="movil-pestanas" aria-label="Secciones">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html" class="activo" aria-current="page">Móvil</a>
+      <a href="contacto.html" class="movil-pestana-contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="movil-visor">
+    <h1 class="solo-lectores">Versión móvil</h1>
+    <p class="mv-ayuda">Elige una sección para verla en formato celular, en vertical.</p>
+    <div class="mv-tabs" role="tablist" aria-label="Secciones en versión móvil" id="mv-tabs">
+      <button type="button" role="tab" data-src="../index.html?movil" aria-selected="true">Inicio</button>
+      <button type="button" role="tab" data-src="proyecto.html?movil">Proyecto</button>
+      <button type="button" role="tab" data-src="planos.html?movil">Planos</button>
+      <button type="button" role="tab" data-src="galeria.html?movil">Galería</button>
+      <button type="button" role="tab" data-src="presentacion.html?movil">Presentación</button>
+      <button type="button" role="tab" data-src="disenador.html?movil">Diseñador</button>
+      <button type="button" role="tab" data-src="contacto.html?movil">Contacto</button>
+    </div>
+    <div class="mv-celular">
+      <div class="mv-muesca" aria-hidden="true"></div>
+      <iframe id="mv-marco" title="Versión celular de la sección" src="../index.html?movil"></iframe>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie-grid">
+      <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
+      <a href="?admin" id="enlace-admin">Administrador</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const marco = document.getElementById("mv-marco");
+      document.querySelectorAll("#mv-tabs button").forEach(b => b.addEventListener("click", () => {
+        document.querySelectorAll("#mv-tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+        marco.src = b.dataset.src;
+      }));
+    })();
+  </script>
+</body>
+</html>

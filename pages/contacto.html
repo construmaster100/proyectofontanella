@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Contacto | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+<script>if(location.search.indexOf("movil")>-1)document.documentElement.classList.add("en-movil")</script>
+</head>
+<body>
+
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja activo" aria-current="page">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="contacto" class="seccion contacto">
+      <div class="contenedor contacto-grid">
+        <div>
+          <h1>Agenda tu visita</h1>
+          <p>Últimas unidades disponibles. Nuestro equipo te acompaña en todo el proceso de compra.</p>
+        </div>
+        <ul class="contacto-datos">
+          <li><span>Teléfono</span><a href="tel:+573112114687">(+57) 311 211 4687</a></li>
+          <li><span>WhatsApp</span><a href="https://wa.me/573112114687" target="_blank" rel="noopener">Escríbenos</a></li>
+          <li><span>Web</span><a href="https://www.fontanellacr.com" target="_blank" rel="noopener">www.fontanellacr.com</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie-grid">
+      <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
+      <a href="?admin" id="enlace-admin">Administrador</a>
+    </div>
+  </footer>
+
+  <dialog class="visor" id="visor" aria-labelledby="visor-titulo">
+    <div class="visor-cabecera">
+      <div>
+        <span class="visor-id" id="visor-id"></span>
+        <span class="visor-resolucion" id="visor-resolucion"></span>
+        <h3 id="visor-titulo"></h3>
+      </div>
+      <span class="visor-contador" id="visor-contador"></span>
+      <button class="visor-cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+    </div>
+    <div class="visor-cuerpo">
+      <div class="visor-escena">
+        <button class="visor-nav visor-anterior" id="visor-anterior" aria-label="Imagen anterior">‹</button>
+        <div class="lienzo" id="visor-lienzo">
+          <img id="visor-img" alt="">
+          <div class="capa-puntos" id="visor-puntos"></div>
+        </div>
+        <button class="visor-nav visor-siguiente" id="visor-siguiente" aria-label="Imagen siguiente">›</button>
+      </div>
+      <aside class="visor-lado">
+        <h4>Puntos señalados</h4>
+        <ol class="visor-lista" id="visor-lista"></ol>
+      </aside>
+    </div>
+  </dialog>
+
+  <script src="../js/puntos.js?v=4"></script>
+  <script src="../js/datos.js?v=4"></script>
+  <script src="../js/administrador.js?v=4"></script>
+  <script src="../js/galeria.js?v=4"></script>
+</body>
+</html>
