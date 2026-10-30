@@ -1,0 +1,86 @@
+/* Clase propia vplanos: .visor ya es el visor de imágenes de estilos.css (ancho 1120 px) y recortaba la página y el navbar. */
+/* Visor de planos: aplicación a pantalla completa bajo el navbar del sitio (css/estilos.css).
+   Todo va dentro de body.vplanos para no tocar el resto de páginas. */
+body.vplanos { display: flex; flex-direction: column; height: 100vh; margin: 0; overflow: hidden; }
+
+.vplanos .app {
+  --bg: #e6e8e3; --panel: #f4f5f1; --ink: #1d2730; --muted: #5d6872; --line: #c9cdc6;
+  --navy: #28356f; --ochre: #b8862b; --chip: #e9ebe6;
+  display: grid; grid-template-columns: 320px 1fr; flex: 1; min-height: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.45;
+}
+.vplanos .app * { box-sizing: border-box; }
+.vplanos aside { background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; padding: 20px 20px 28px; }
+.vplanos h1 { font-family: inherit; font-stretch: 78%; font-weight: 700; font-size: 30px; line-height: 1.02; margin: 0 0 4px; letter-spacing: -.01em; color: var(--ink); }
+.vplanos .sub { color: var(--muted); margin: 0 0 18px; font-size: 13px; }
+.vplanos h2 { font-family: inherit; font-size: 15px; font-weight: 650; margin: 22px 0 8px; font-stretch: 85%; color: var(--ink); }
+.vplanos .views { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.vplanos .app button { font: inherit; color: var(--ink); background: var(--chip); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; cursor: pointer; text-align: left; }
+.vplanos .app button:hover { border-color: var(--navy); }
+.vplanos .app button[aria-pressed="true"] { background: var(--navy); color: var(--panel); border-color: var(--navy); }
+.vplanos .app button:focus-visible, .vplanos .app input:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
+.vplanos .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 10px; margin: 8px 0; }
+.vplanos .row label { font-size: 13px; }
+.vplanos .row output { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--muted); min-width: 54px; text-align: right; }
+.vplanos input[type=range] { grid-column: 1 / 3; width: 100%; accent-color: var(--navy); }
+.vplanos .layer { display: grid; grid-template-columns: 18px 14px 1fr 62px; align-items: center; gap: 8px; margin: 7px 0; font-size: 13px; }
+.vplanos .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, .25); }
+.vplanos .note { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+.vplanos .stage { position: relative; min-width: 0; background: #fff; }
+.vplanos canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+/* ficha del espacio o de la puerta */
+.vplanos #info { position: absolute; right: 16px; top: 16px; width: 276px; max-height: calc(100% - 90px); overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: none; }
+.vplanos #info h3 { margin: 0 0 6px; font-family: inherit; font-stretch: 80%; font-size: 22px; color: var(--ink); }
+.vplanos #info dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; font-size: 13px; }
+.vplanos #info dt { color: var(--muted); }
+.vplanos #info dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
+.vplanos #info .x { position: absolute; right: 8px; top: 6px; border: 0; background: none; font-size: 18px; padding: 2px 6px; }
+.vplanos #ed, .vplanos #edA { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 4px; }
+.vplanos #ed label, .vplanos #edA label { display: block; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.vplanos #ed input, .vplanos #ed select, .vplanos #edA select, .vplanos .row select { width: 100%; font: inherit; font-size: 13px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); }
+.vplanos #resumen { margin: 6px 0 0; padding-left: 16px; font-size: 12px; }
+.vplanos #resumen li { margin: 5px 0; }
+
+/* ayuda, escala y lectura del píxel */
+.vplanos .hint { position: absolute; left: 16px; top: 14px; max-width: 60%; font-size: 12px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; }
+.vplanos .scalebar { position: absolute; right: 16px; bottom: 14px; font-size: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .vplanos .app { grid-template-columns: 1fr; grid-template-rows: 58% 42%; }
+  .vplanos aside { order: 2; border-right: 0; border-top: 1px solid var(--line); padding: 14px 16px; }
+  .vplanos h1 { font-size: 24px; }
+  .vplanos #info { width: auto; left: 12px; right: 12px; top: 12px; }
+  .vplanos .hint { display: none; }
+}
+
+/* Planta tipo: plano a todo el ancho, barra de iconos flotante y panel de convenciones a la derecha */
+.vplanos .app.plano { --panel: #fff; --line: #e1e4e8; --muted: #6b7480; grid-template-columns: 1fr 270px; background: #fff; font-size: 13px; }
+.vplanos .plano aside { border-right: 0; border-left: 1px solid var(--line); background: #fafbfc; padding: 18px 18px 24px; }
+.vplanos .plano h1 { font-size: 20px; margin: 0 0 2px; }
+.vplanos .plano .sub { margin: 0 0 6px; font-size: 12px; }
+.vplanos .plano h2 { margin: 18px 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-stretch: 100%; }
+.vplanos .conv { list-style: none; margin: 0; padding: 0; font-size: 12px; line-height: 1.35; }
+.vplanos .conv li { margin: 0 0 7px !important; }
+.vplanos .conv .sw { display: inline-block; vertical-align: middle; margin-right: 6px; }
+.vplanos .barra-h { position: absolute; left: 12px; top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.vplanos .grupo { display: flex; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .08); overflow: hidden; }
+.vplanos .app .grupo button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-right: 1px solid var(--line); border-radius: 0; background: none; color: var(--ink); font-weight: 700; font-size: 12px; text-align: center; }
+.vplanos .app .grupo button:last-child { border-right: 0; }
+.vplanos .app .grupo button:hover { background: #f1f3f6; }
+.vplanos .app .grupo button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+.vplanos .grupo svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.vplanos .plano .hint { top: auto; bottom: 12px; left: 12px; max-width: 50%; font-size: 11px; background: rgba(255, 255, 255, .92); }
+.vplanos .plano .scalebar { bottom: 12px; right: 12px; font-size: 11px; background: rgba(255, 255, 255, .92); }
+@media (max-width: 760px) {
+  .vplanos .app.plano { grid-template-columns: 1fr; grid-template-rows: 62% 38%; }
+  .vplanos .plano aside { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* Esquema compacto: el plano ocupa todo el ancho; las convenciones se abren con su botón, flotando a la derecha */
+.vplanos .app.plano { grid-template-columns: 1fr; position: relative; }
+.vplanos .plano aside { display: none; position: absolute; top: 12px; right: 12px; z-index: 3; width: 250px; max-height: calc(100% - 24px); padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 20px rgba(0, 0, 0, .12); }
+.vplanos .plano aside.abierta { display: block; }
+.vplanos .plano aside h1 { font-size: 16px; }
+@media (max-width: 760px) { .vplanos .app.plano { grid-template-rows: 1fr; } .vplanos .plano aside { left: 12px; width: auto; border-top: 1px solid var(--line); } }

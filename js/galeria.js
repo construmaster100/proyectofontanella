@@ -430,17 +430,30 @@
     if (idsDrone.length) marcarActual(0);
   }
 
-  // Planos en PDF: una tarjeta por archivo de img/planos/pdf
+  // Planos: cada PDF convertido a JPG por herramientas/escaner/planos_a_jpg.py. Bloque compacto: la imagen, el título
+  // y la ubicación; al tocar la imagen se abre en el visor. Lo medido en el plano queda plegado en «Datos».
   const listaPdf = $("lista-pdf");
   if (listaPdf) {
-    const pdfs = window.PLANOS_PDF || [];
+    const pdfs = window.PLANOS_PDF || [], idsJpg = pdfs.map(p => p.jpg);
     $("pdf-vacio").hidden = pdfs.length > 0;
+    let grupo = null;
     pdfs.forEach(p => {
+      if (p.grupo !== grupo) {
+        grupo = p.grupo;
+        const h = document.createElement("li");
+        h.className = "pdf-grupo"; h.textContent = grupo; listaPdf.appendChild(h);
+      }
       const li = document.createElement("li");
-      const ruta = F.RUTA_IMG + "planos/pdf/" + p.archivo;
-      li.innerHTML = '<span class="pdf-icono">PDF</span><b></b><span class="pdf-acciones"><a class="boton boton-borde" target="_blank" rel="noopener">Ver</a><a class="boton boton-naranja" download>Descargar</a></span>';
-      li.querySelector("b").textContent = p.titulo || p.archivo;
-      li.querySelectorAll("a").forEach(a => (a.href = ruta));
+      li.innerHTML = '<button class="pdf-mini" type="button"><img loading="lazy" alt=""></button><b></b><span class="pdf-ubic"></span>' +
+        '<details class="pdf-datos"><summary>Datos</summary><dl></dl></details><a class="pdf-enlace" target="_blank" rel="noopener">PDF</a>';
+      li.querySelector("img").src = F.RUTA_IMG + p.miniatura;
+      li.querySelector("b").textContent = p.titulo;
+      li.querySelector(".pdf-ubic").textContent = (p.hoja ? "Hoja " + p.hoja + " · " : "") + p.ubicacion;
+      const dl = li.querySelector("dl");
+      [["Tipo", p.tipo], ["Lámina", p.lamina], ["Medida", p.medida], ["Escala", p.escala_px], ["Coincidencia", p.coincidencia], ["Contenido", p.contenido], ["Archivo", "img/" + p.archivo]]
+        .filter(([, v]) => v).forEach(([k, v]) => { const dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = k; dd.textContent = v; dl.append(dt, dd); });
+      li.querySelector(".pdf-enlace").href = F.RUTA_IMG + p.archivo.split("/").map(encodeURIComponent).join("/");
+      li.querySelector(".pdf-mini").addEventListener("click", () => abrir(p.jpg, idsJpg));
       listaPdf.appendChild(li);
     });
   }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Modelo 3D | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+  <link rel="stylesheet" href="../css/visor-planos.css?v=4">
+  <link rel="stylesheet" href="../css/modelo-3d.css?v=2">
+</head>
+<body class="vplanos m3d">
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="Fontanella%20%C2%B7%20Planta%20tipo%20en%202D.html">Visor de planos</a>
+      <a href="modelo-3d.html" class="activo" aria-current="page">Modelo 3D</a>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja">Contacto</a>
+    </nav>
+  </header>
+<div class="app">
+<aside>
+  <h1>Modelo 3D</h1>
+  <p class="sub">Fontanella · modelo Collada (DAE) exportado de Revit con Lumion LiveSync. Girar: arrastrar · mover: clic derecho · acercar: rueda.</p>
+
+  <h2>Vista</h2>
+  <div class="views">
+    <button data-vista="persp">Perspectiva</button>
+    <button data-vista="planta">Planta</button>
+    <button data-vista="frente">Frente</button>
+    <button data-vista="lateral">Lateral</button>
+  </div>
+
+  <h2>Corte horizontal</h2>
+  <div class="row"><label for="m3dCorte">Altura</label><output id="m3dCorteTxt">sin corte</output>
+  <input id="m3dCorte" type="range" min="0" max="1" step="0.01" value="1"></div>
+  <h2>Cortes verticales</h2>
+  <div class="row"><label for="m3dCorteZ">De frente</label><output id="m3dCorteZTxt">sin corte</output>
+  <input id="m3dCorteZ" type="range" min="0" max="1" step="0.01" value="1"></div>
+  <div class="row"><label for="m3dCorteX">Lateral</label><output id="m3dCorteXTxt">sin corte</output>
+  <input id="m3dCorteX" type="range" min="0" max="1" step="0.01" value="1"></div>
+  <div class="views"><button id="m3dSinCorte" type="button">Quitar cortes</button></div>
+  <h2>Sol y sombras</h2>
+  <div class="layer"><input type="checkbox" id="m3dSombras"><span class="sw" style="background:#f5b301"></span><span>Sombras del sol</span><span></span></div>
+  <div class="row"><label for="m3dSolAz">Dirección del sol</label><output id="m3dSolAzTxt"></output>
+  <input id="m3dSolAz" type="range" min="0" max="360" step="1" value="135"></div>
+  <div class="row"><label for="m3dSolEl">Altura del sol</label><output id="m3dSolElTxt"></output>
+  <input id="m3dSolEl" type="range" min="5" max="85" step="1" value="40"></div>
+
+  <h2>Medir</h2>
+  <div class="views"><button id="m3dMedir" aria-pressed="false">Medir distancia (2 puntos)</button></div>
+  <p id="m3dMedTxt"></p>
+
+  <h2>Opciones</h2>
+  <div class="layer"><input type="checkbox" id="m3dAlambre"><span class="sw" style="background:#555"></span><span>Alambre (aristas)</span><span></span></div>
+  <div class="layer"><input type="checkbox" id="m3dFondo"><span class="sw" style="background:#1b2026"></span><span>Fondo oscuro</span><span></span></div>
+
+  <h2>Materiales</h2>
+  <div id="m3dMateriales"></div>
+  <p class="note" id="m3dInfo"></p>
+  <p class="note">Modelo: docs/3d/Project1.dae (52 MB) y sus texturas en docs/3d/Project1_Textures. Las texturas del archivo traen rutas absolutas del disco de origen; el visor las busca por nombre.</p>
+</aside>
+<div class="stage" id="stage3d">
+  <canvas id="c3d"></canvas>
+  <div class="m3d-estado" id="m3dEstado">Preparando el visor…</div>
+  <div class="m3d-carga" id="m3dCarga"><div>
+    <h2>Cargar el modelo</h2>
+    <p>Abierta como archivo, la página no puede leer el modelo por sí sola. Elige <b>Project1.dae</b> y, para ver las texturas, la carpeta del modelo (<b>docs/3d</b>); también puedes arrastrar los archivos aquí. Desde un servidor se carga solo.</p>
+    <div class="views"><button id="m3dBtnDae">Elegir Project1.dae</button><button id="m3dBtnCarpeta">Elegir la carpeta docs/3d (modelo + texturas)</button></div>
+    <input type="file" id="m3dArchivos" accept=".dae,.png,.jpg,.jpeg" multiple hidden>
+    <input type="file" id="m3dCarpeta" webkitdirectory hidden>
+  </div></div>
+</div>
+</div>
+<script src="../js/vendor/three.min.js"></script>
+<script src="../js/vendor/ColladaLoader.js"></script>
+<script src="../js/vendor/MTLLoader.js"></script>
+<script src="../js/vendor/OBJLoader.js"></script>
+<script src="../js/vendor/OrbitControls.js"></script>
+<script src="../js/modelo-3d.js?v=5"></script>
+</body>
+</html>

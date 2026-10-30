@@ -1,0 +1,12 @@
+/* Visualizador 3D (pages/modelo-3d.html): reutiliza la estructura de css/visor-planos.css (body.vplanos). */
+.vplanos .stage canvas#c3d { background: #eef0f6; }
+.vplanos .m3d-estado { position: absolute; left: 16px; top: 14px; max-width: 70%; font-size: 12px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; }
+.vplanos .m3d-carga { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(238, 240, 246, .82); text-align: center; padding: 24px; }
+.vplanos .m3d-carga[hidden] { display: none; }
+.vplanos .m3d-carga > div { max-width: 460px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; box-shadow: 0 10px 30px rgba(16, 39, 121, .12); }
+.vplanos .m3d-carga h2 { margin: 0 0 6px; }
+.vplanos .m3d-carga p { margin: 6px 0 12px; font-size: 13px; color: var(--muted); }
+.vplanos .m3d-carga .views { grid-template-columns: 1fr; }
+.vplanos #m3dMateriales { max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; background: #fff; }
+.vplanos #m3dMateriales .layer { grid-template-columns: 18px 14px 1fr 0; margin: 4px 0; }
+.vplanos #m3dMedTxt { min-height: 1.4em; margin: 6px 0 0; font-size: 13px; }

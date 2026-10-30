@@ -15,6 +15,7 @@
   .secuencia{max-width:1400px;margin:0 auto}
   .secuencia-marco{position:relative;background:#fff;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.2);overflow:hidden}
   .secuencia-marco img{width:100%;height:auto;display:block}
+  .secuencia-marco #sec-img2{position:absolute;left:0;top:0;opacity:0;transition-property:opacity;transition-timing-function:ease-in-out}
   .secuencia-etiqueta{position:absolute;left:1rem;bottom:1rem;background:rgba(0,0,0,.65);color:#fff;padding:.3rem .8rem;border-radius:4px;font-weight:700}
   .secuencia-controles{display:flex;gap:1rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
   .secuencia-controles input{flex:1;min-width:120px}
@@ -36,6 +37,8 @@
           <a href="explorador.html">Explorador</a>
         </div>
       </div>
+      <a href="Fontanella%20%C2%B7%20Planta%20tipo%20en%202D.html">Visor de planos</a>
+      <a href="modelo-3d.html">Modelo 3D</a>
       <a href="galeria.html">Galería</a>
       <a href="secuencia.html" class="activo" aria-current="page">Secuencia</a>
       <a href="presentacion.html">Presentación</a>
@@ -51,16 +54,20 @@
         <h1>Secuencia por pisos</h1>
         <div class="secuencia">
           <div class="secuencia-marco">
-            <img id="sec-img" src="../img/secuencia%20por%20pisos/nivel-01/nivel.jpg" alt="Nivel 1">
+            <img id="sec-img" src="../img/2.0%20nueva%20secuencia/nivel-01.jpg" alt="Nivel 1" width="2376" height="1836">
+            <img id="sec-img2" alt="" aria-hidden="true" width="2376" height="1836">
             <span class="secuencia-etiqueta" id="sec-etiqueta">Nivel 1</span>
           </div>
           <div class="secuencia-controles">
             <button class="boton boton-naranja" id="sec-pausa" type="button">Pausar</button>
-            <label for="sec-vel">Velocidad</label>
-            <input type="range" id="sec-vel" min="80" max="1000" step="20" value="250" style="direction:rtl">
+            <label for="sec-vel">Velocidad final</label>
+            <input type="range" id="sec-vel" min="1500" max="10000" step="250" value="5000" style="direction:rtl">
           </div>
         </div>
 
+      </div>
+    </section>
+  </main>
   <footer class="pie">
     <div class="contenedor pie-grid">
       <span>© <span id="anio"></span> Fontanella · En armonía con la naturaleza</span>
@@ -69,17 +76,40 @@
   <script>document.getElementById("anio").textContent=new Date().getFullYear()</script>
 <script>
 (function(){
-  var niveles=[1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17], base="../img/secuencia%20por%20pisos/nivel-";
-  var url=function(n){return base+(n<10?"0":"")+n+"/nivel.jpg"};
-  var img=document.getElementById("sec-img"),et=document.getElementById("sec-etiqueta"),
+  var niveles=[1,2,3,4,6,8,10,11,12,14,16], base="../img/2.0%20nueva%20secuencia/";
+  var url=function(n){return base+"nivel-"+(n<10?"0":"")+n+".jpg"};
+  var rotulo=function(n){return "Nivel "+n};
+  var img=document.getElementById("sec-img"),img2=document.getElementById("sec-img2"),et=document.getElementById("sec-etiqueta"),
       btn=document.getElementById("sec-pausa"),vel=document.getElementById("sec-vel");
-  var cache=niveles.map(function(n){var i=new Image();i.src=url(n);return i});
-  var i=0,ms=+vel.value,t=null;
-  function paso(){i=(i+1)%niveles.length;img.src=cache[i].src;img.alt=et.textContent="Nivel "+niveles[i]}
-  function play(){clearInterval(t);t=setInterval(paso,ms);btn.textContent="Pausar"}
-  function stop(){clearInterval(t);t=null;btn.textContent="Reproducir"}
-  btn.onclick=function(){t?stop():play()};
-  vel.oninput=function(){ms=+vel.value;if(t)play()};
+  var N=niveles.length,lento=+vel.value,i=0,t=null,fin=null,activo=true,actual=img.src;   // actual: la imagen que se está viendo
+
+  // Precarga en orden: cada imagen empieza cuando la anterior terminó, para que el nivel 2 esté listo primero.
+  var cache=niveles.map(function(n){var im=new Image();im.listo=new Promise(function(ok){im.onload=im.onerror=ok});return im});
+  (function carga(k){if(k>=N)return;cache[k].src=url(niveles[k]);cache[k].listo.then(function(){carga(k+1)})})(0);
+
+  // Ritmo: arranca rápido (12 % del tiempo lento) y frena poco a poco hasta el último nivel.
+  function espera(k){return k>=N-1?lento:Math.round(lento*(.12+.88*Math.pow(k/(N-1),1.6)))}
+
+  function paso(){
+    var k=i,sig=(i+1)%N,dur=Math.max(200,Math.round(espera(k)*.9));
+    // No empieza la fusión hasta que la imagen esté descargada y decodificada: así nunca se ve cortada.
+    cache[sig].listo.then(function(){return cache[sig].decode?cache[sig].decode().catch(function(){}):0}).then(function(){
+      if(!activo)return;
+      i=sig;var src=cache[sig].src;
+      clearTimeout(fin);img.src=actual;actual=src;   // nunca img2.src: sin imagen cargada devuelve la URL de la página y el marco colapsaba
+      img2.style.transition="none";img2.style.opacity=0;img2.src=src;
+      void img2.offsetWidth;
+      img2.style.transition="opacity "+dur+"ms ease-in-out";img2.style.opacity=1;
+      et.textContent=img2.alt=rotulo(niveles[sig]);
+      fin=setTimeout(function(){img.src=src;img.alt=rotulo(niveles[sig]);img2.style.transition="none";img2.style.opacity=0},dur+50);
+      agenda();
+    });
+  }
+  function agenda(){clearTimeout(t);if(activo)t=setTimeout(paso,espera(i))}
+  function play(){activo=true;btn.textContent="Pausar";agenda()}
+  function stop(){activo=false;clearTimeout(t);btn.textContent="Reproducir"}
+  btn.onclick=function(){activo?stop():play()};
+  vel.oninput=function(){lento=+vel.value;if(activo)agenda()};
   play();
 })();
 </script>

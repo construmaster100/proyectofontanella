@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../img/marca/favicon.png">
+  <link rel="apple-touch-icon" href="../img/marca/apple-touch-icon.png">
+  <title>Visor de planos | Fontanella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estilos.css?v=72">
+  <link rel="stylesheet" href="../css/visor-planos.css?v=1793387508">
+</head>
+<body class="vplanos">
+  <header class="barra">
+    <a href="../index.html" class="marca">
+      <img src="../img/marca/logo-blanco.png" alt="Fontanella · En armonía con la naturaleza" class="marca-logo" width="101" height="48">
+    </a>
+    <nav class="menu">
+      <a href="../index.html">Inicio</a>
+      <div class="menu-desplegable">
+        <a href="proyecto.html" aria-haspopup="true">Proyecto</a>
+        <div class="submenu">
+          <a href="planos.html">Planos (JPG)</a>
+          <a href="planos-pdf.html">Planos (PDF)</a>
+          <a href="explorador.html">Explorador</a>
+        </div>
+      </div>
+      <a href="Fontanella%20%C2%B7%20Planta%20tipo%20en%202D.html" class="activo" aria-current="page">Visor de planos</a>
+      <a href="modelo-3d.html">Modelo 3D</a>
+      <a href="galeria.html">Galería</a>
+      <a href="secuencia.html">Secuencia</a>
+      <a href="presentacion.html">Presentación</a>
+      <a href="disenador.html">Diseñador</a>
+      <a href="movil.html">Móvil</a>
+      <a href="contacto.html" class="boton boton-naranja">Contacto</a>
+    </nav>
+  </header>
+<div class="app plano">
+<div class="stage" id="stage">
+  <canvas id="c"></canvas>
+  <div class="barra-h" role="toolbar" aria-label="Herramientas del plano">
+    <div class="grupo">
+      <button id="tNav" aria-pressed="true" title="Navegar y consultar" aria-label="Navegar y consultar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3l12 9-5.5 1.2L10 19z"/></svg></button>
+      <button id="tMed" aria-pressed="false" title="Medir entre dos puntos (px y m)" aria-label="Medir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16.5L16.5 3 21 7.5 7.5 21z"/><path d="M7 12.5l2 2M10 9.5l2 2M13 6.5l2 2"/></svg></button>
+      <button id="tClr" title="Borrar medidas" aria-label="Borrar medidas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13"/></svg></button>
+    </div>
+    <div class="grupo">
+      <button id="mTip" aria-pressed="true" title="Tipologías" aria-label="Ver tipologías"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></button>
+      <button id="mAmb" aria-pressed="false" title="Distribución del apartamento" aria-label="Ver distribución"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 12h7M11 4v11M15 12v8M15 12h5"/></svg></button>
+    </div>
+    <div class="grupo" id="views">
+      <button data-v="all" aria-pressed="true" title="Ajustar a la pantalla" aria-label="Ajustar a la pantalla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+      <button data-v="A" aria-pressed="false" title="Torre A">A</button>
+      <button data-v="B" aria-pressed="false" title="Torre B">B</button>
+    </div>
+    <div class="grupo">
+      <button id="tLey" aria-pressed="false" title="Convenciones" aria-label="Convenciones"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 5h2v2H4zM4 11h2v2H4zM4 17h2v2H4z"/></svg></button>
+    </div>
+    <div class="grupo">
+      <button id="zMas" title="Acercar" aria-label="Acercar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button id="zMenos" title="Alejar" aria-label="Alejar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+    </div>
+  </div>
+  <div id="info" role="dialog" aria-live="polite"><button class="x" id="ix" aria-label="Cerrar">×</button><h3 id="it"></h3><dl id="id"></dl>
+    <div id="ed">
+      <label for="edNom">Etiqueta</label><input id="edNom" type="text" placeholder="p. ej. Apartamento 101">
+      <label for="edTip">Tipología asignada</label><select id="edTip"></select>
+    </div>
+    <div id="edA" style="display:none">
+      <label for="edTipoA">Tipo de ambiente</label><select id="edTipoA"></select>
+    </div>
+  </div>
+  <div class="hint" id="hint">Arrastra para mover · rueda para acercar · toca una unidad o un espacio</div>
+  <div class="scalebar" id="sb"><span id="sbt"></span><br><i id="sbi" style="display:inline-block;height:6px;border:2px solid var(--ink);border-top:0;vertical-align:middle"></i><b id="sbn"></b></div>
+</div>
+<aside>
+  <h1>Planta tipo</h1>
+  <p class="sub">Escala 1:<span id="scv"></span> · <output id="mpp"></output></p>
+  <h2>Muros</h2>
+  <ul class="conv">
+    <li><span class="sw" style="background:#111"></span><b>Muro</b> · ancho único 18 cm (3 px)</li>
+    <li><span class="sw" style="background:#fff;border:3px solid #3b6fb6"></span><b>Límite de la unidad</b> · línea gruesa del color de su tipo</li>
+    <li><svg width="14" height="14" viewBox="0 0 14 14" style="vertical-align:middle;margin-right:6px" aria-hidden="true"><path d="M1 13V1M1 1a12 12 0 0 1 12 12" fill="none" stroke="#333" stroke-width="1.3"/></svg><b>Puerta</b> · hoja y giro</li>
+  </ul>
+  <h2>Tipologías</h2>
+  <ul class="conv" id="leyenda"></ul>
+  <h2>Distribución</h2>
+  <ul class="conv" id="leyAmb"></ul>
+</aside>
+</div>
+<script src="../js/visor-planos-datos.js?v=1793387508"></script>
+<script src="../js/visor-planos.js?v=1793387508"></script>
+</body>
+</html>

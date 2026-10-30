@@ -1,0 +1,25 @@
+/* Diagrama «Distribución del proyecto» del index: se dibuja con js/distribucion.js a partir de js/visor-planos-datos.js.
+   Usa las variables de estilos.css para quedar igual que el resto de los bloques de la ficha. */
+.distri { display: grid; gap: 14px; }
+.distri-barra { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.distri-barra button { font: inherit; font-size: 0.8rem; font-weight: 600; padding: 7px 14px; border: 1px solid var(--borde); border-radius: 999px; background: var(--blanco); color: var(--texto); cursor: pointer; }
+.distri-barra button:hover { border-color: var(--azul); }
+.distri-barra button[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+.distri-enlaces { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.distri-enlaces .boton { padding: 7px 16px; font-size: 0.8rem; }
+.distri-marco { background: var(--fondo-suave); border: 1px solid var(--borde); border-radius: var(--radio); padding: 12px; overflow: hidden; }
+.distri-svg { display: block; width: 100%; height: auto; }
+.distri-svg .d-muro { fill: var(--texto); }
+.distri-svg .d-zona { stroke-width: 3; stroke-linejoin: round; fill-opacity: 0.55; cursor: pointer; transition: fill-opacity .15s; }
+.distri-svg .d-zona:hover, .distri-svg .d-zona.sel { fill-opacity: 0.9; }
+.distri-svg .d-amb { cursor: pointer; fill-opacity: 0.8; transition: fill-opacity .15s; }
+.distri-svg .d-amb:hover { fill-opacity: 1; }
+.distri-svg .d-etq { font: 700 13px "Montserrat", sans-serif; fill: var(--texto); text-anchor: middle; paint-order: stroke; stroke: #fff; stroke-width: 3px; pointer-events: none; }
+.distri-svg .d-torre { font: 800 15px "Montserrat", sans-serif; fill: var(--azul); text-anchor: middle; paint-order: stroke; stroke: #fff; stroke-width: 4px; }
+.distri-info { min-height: 2.6em; margin: 0; padding: 10px 14px; background: var(--blanco); border: 1px solid var(--borde); border-radius: 10px; font-size: 0.85rem; color: var(--texto); }
+.distri-info b { color: var(--azul); }
+.distri-leyenda { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px 16px; margin: 0; padding: 0; list-style: none; }
+.distri-leyenda li { display: flex; gap: 8px; align-items: flex-start; font-size: 0.78rem; line-height: 1.35; color: var(--texto-suave); }
+.distri-leyenda li b { display: block; color: var(--texto); }
+.distri-leyenda .sw { flex: none; width: 14px; height: 14px; margin-top: 2px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .2); }
+.distri-nota { margin: 0; font-size: 0.74rem; color: var(--texto-suave); }

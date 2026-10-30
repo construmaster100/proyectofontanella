@@ -5,3 +5,11 @@ desktop.ini
 
 # Duplicados
 *copia*/
+
+# Originales 3D pesados (el visor usa js/modelo-3d-datos.js, generado con herramientas/escaner/empaquetar_3d.py)
+docs/3d/Project1.dae
+docs/3d/Project1.obj
+docs/3d/*.zip
+
+# Copias de respaldo locales
+checkpoints/
